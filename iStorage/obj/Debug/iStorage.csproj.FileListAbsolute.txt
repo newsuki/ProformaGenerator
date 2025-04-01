@@ -1,0 +1,11 @@
+D:\My Projects\ProformaGenerator\iStorage\bin\Debug\iStorage.exe.config
+D:\My Projects\ProformaGenerator\iStorage\bin\Debug\iStorage.exe
+D:\My Projects\ProformaGenerator\iStorage\bin\Debug\iStorage.pdb
+D:\My Projects\ProformaGenerator\iStorage\obj\Debug\iStorage.csproj.AssemblyReference.cache
+D:\My Projects\ProformaGenerator\iStorage\obj\Debug\iStorage.mainForm.resources
+D:\My Projects\ProformaGenerator\iStorage\obj\Debug\iStorage.Properties.Resources.resources
+D:\My Projects\ProformaGenerator\iStorage\obj\Debug\iStorage.Resource1.resources
+D:\My Projects\ProformaGenerator\iStorage\obj\Debug\iStorage.csproj.GenerateResource.cache
+D:\My Projects\ProformaGenerator\iStorage\obj\Debug\iStorage.csproj.CoreCompileInputs.cache
+D:\My Projects\ProformaGenerator\iStorage\obj\Debug\iStorage.exe
+D:\My Projects\ProformaGenerator\iStorage\obj\Debug\iStorage.pdb

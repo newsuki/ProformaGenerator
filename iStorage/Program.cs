@@ -16,7 +16,7 @@ namespace iStorage
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new proformaForm());
+            Application.Run(new mainForm());
         }
     }
 }
