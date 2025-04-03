@@ -53,7 +53,6 @@
             this.displayImagesButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.countryOriginComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
@@ -287,18 +286,6 @@
             this.label3.TabIndex = 34;
             this.label3.Text = "Country of origin";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label4.Location = new System.Drawing.Point(710, 31);
-            this.label4.Name = "label4";
-            this.label4.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label4.Size = new System.Drawing.Size(132, 13);
-            this.label4.TabIndex = 35;
-            this.label4.Text = "Adrian Karahmetović 2025";
-            // 
             // countryOriginComboBox
             // 
             this.countryOriginComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -308,13 +295,12 @@
             this.countryOriginComboBox.Size = new System.Drawing.Size(121, 21);
             this.countryOriginComboBox.TabIndex = 36;
             // 
-            // settingsForm
+            // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(854, 440);
             this.Controls.Add(this.countryOriginComboBox);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.displayImagesButton);
@@ -340,7 +326,7 @@
             this.Controls.Add(this.countrySettingsLabel);
             this.Controls.Add(this.countryCodeTextbox);
             this.Controls.Add(this.countryNameTextbox);
-            this.Name = "settingsForm";
+            this.Name = "SettingsForm";
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.settingsForm_Load);
             this.ResumeLayout(false);
@@ -375,7 +361,6 @@
         private System.Windows.Forms.Button displayImagesButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox countryOriginComboBox;
     }
 }

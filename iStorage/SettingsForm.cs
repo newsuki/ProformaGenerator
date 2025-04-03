@@ -96,6 +96,9 @@ namespace iStorage
             if (selectedTable == "" || column == "")
                 return;
 
+            if (displaySettingsInfoListbox.SelectedItem == null)
+                return;
+
             db.Open();
 
             db.DeleteFrom(displaySettingsInfoListbox, selectedTable, column);

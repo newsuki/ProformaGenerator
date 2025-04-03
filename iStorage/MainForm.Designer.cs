@@ -35,8 +35,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.invoiceProductsListbox = new System.Windows.Forms.ListBox();
             this.invoiceBuyerListbox = new System.Windows.Forms.ListBox();
-            this.sellerBuyerListbox = new System.Windows.Forms.ListBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.invoiceSellerListbox = new System.Windows.Forms.ListBox();
             this.selectCompanyButton = new System.Windows.Forms.Button();
             this.companySettingsPicture = new System.Windows.Forms.PictureBox();
             this.companyPicture = new System.Windows.Forms.PictureBox();
@@ -100,27 +99,14 @@
             this.invoiceBuyerListbox.Size = new System.Drawing.Size(245, 121);
             this.invoiceBuyerListbox.TabIndex = 11;
             // 
-            // sellerBuyerListbox
+            // invoiceSellerListbox
             // 
-            this.sellerBuyerListbox.FormattingEnabled = true;
-            this.sellerBuyerListbox.Location = new System.Drawing.Point(321, 210);
-            this.sellerBuyerListbox.Name = "sellerBuyerListbox";
-            this.sellerBuyerListbox.Size = new System.Drawing.Size(245, 121);
-            this.sellerBuyerListbox.TabIndex = 12;
-            this.sellerBuyerListbox.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label2.Location = new System.Drawing.Point(437, 428);
-            this.label2.Name = "label2";
-            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label2.Size = new System.Drawing.Size(132, 13);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "Adrian Karahmetović 2025";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.invoiceSellerListbox.FormattingEnabled = true;
+            this.invoiceSellerListbox.Location = new System.Drawing.Point(321, 210);
+            this.invoiceSellerListbox.Name = "invoiceSellerListbox";
+            this.invoiceSellerListbox.Size = new System.Drawing.Size(245, 121);
+            this.invoiceSellerListbox.TabIndex = 12;
+            this.invoiceSellerListbox.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
             // selectCompanyButton
             // 
@@ -160,8 +146,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(580, 450);
             this.Controls.Add(this.selectCompanyButton);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.sellerBuyerListbox);
+            this.Controls.Add(this.invoiceSellerListbox);
             this.Controls.Add(this.invoiceBuyerListbox);
             this.Controls.Add(this.invoiceProductsListbox);
             this.Controls.Add(this.companySettingsPicture);
@@ -190,8 +175,7 @@
         private System.Windows.Forms.PictureBox companySettingsPicture;
         private System.Windows.Forms.ListBox invoiceProductsListbox;
         private System.Windows.Forms.ListBox invoiceBuyerListbox;
-        private System.Windows.Forms.ListBox sellerBuyerListbox;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListBox invoiceSellerListbox;
         private System.Windows.Forms.Button selectCompanyButton;
     }
 }

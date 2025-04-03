@@ -121,6 +121,31 @@ namespace iStorage
             }
         }
 
+        public void SaveBuyer(string firstName, string lastName, string address, string phone, string cityName)
+        {
+            using (SQLiteCommand com = new SQLiteCommand("INSERT INTO buyers (first_name, last_name, address, phone, cities_id) VALUES (@firstname, @lastname, @address, @phone, (SELECT id FROM cities WHERE name = @cityName));", conn))
+            {
+                com.Parameters.AddWithValue("@firstname", firstName);
+                com.Parameters.AddWithValue("@lastname", lastName);
+                com.Parameters.AddWithValue("@address", address);
+                com.Parameters.AddWithValue("@phone", phone);
+                com.Parameters.AddWithValue("@cityName", cityName);
+                com.ExecuteNonQuery();
+            }
+        }
+
+        public void SaveSeller(string name, string address, string phone, string cityName)
+        {
+            using (SQLiteCommand com = new SQLiteCommand("INSERT INTO companies (name, address, phone, cities_id) VALUES (@name, @address, @phone, (SELECT id FROM cities WHERE name = @cityName));", conn))
+            {
+                com.Parameters.AddWithValue("@name", name);
+                com.Parameters.AddWithValue("@address", address);
+                com.Parameters.AddWithValue("@phone", phone);
+                com.Parameters.AddWithValue("@cityName", cityName);
+                com.ExecuteNonQuery();
+            }
+        }
+
         public void SaveImage(string imageUrl, string description)
         {
             using (SQLiteCommand com = new SQLiteCommand("INSERT INTO images (url, description) VALUES (@link, @desc);", conn))
