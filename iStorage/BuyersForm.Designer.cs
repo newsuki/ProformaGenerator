@@ -42,6 +42,7 @@
             this.cityComboBox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.deleteCheckbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buyerListbox
@@ -49,6 +50,7 @@
             this.buyerListbox.FormattingEnabled = true;
             this.buyerListbox.Location = new System.Drawing.Point(13, 38);
             this.buyerListbox.Name = "buyerListbox";
+            this.buyerListbox.ScrollAlwaysVisible = true;
             this.buyerListbox.Size = new System.Drawing.Size(550, 277);
             this.buyerListbox.TabIndex = 0;
             this.buyerListbox.SelectedIndexChanged += new System.EventHandler(this.buyerListbox_SelectedIndexChanged);
@@ -164,11 +166,23 @@
             this.label6.TabIndex = 14;
             this.label6.Text = "City of origin";
             // 
+            // deleteCheckbox
+            // 
+            this.deleteCheckbox.AutoSize = true;
+            this.deleteCheckbox.Location = new System.Drawing.Point(123, 412);
+            this.deleteCheckbox.Name = "deleteCheckbox";
+            this.deleteCheckbox.Size = new System.Drawing.Size(101, 17);
+            this.deleteCheckbox.TabIndex = 15;
+            this.deleteCheckbox.Text = "Delete from list?";
+            this.deleteCheckbox.UseVisualStyleBackColor = true;
+            this.deleteCheckbox.CheckedChanged += new System.EventHandler(this.deleteCheckbox_CheckedChanged);
+            // 
             // BuyersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(575, 455);
+            this.Controls.Add(this.deleteCheckbox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cityComboBox);
@@ -207,5 +221,6 @@
         private System.Windows.Forms.ComboBox cityComboBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox deleteCheckbox;
     }
 }

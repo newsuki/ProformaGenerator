@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.IO;
 using System.Windows.Forms;
+using ClosedXML.Excel;
+using System.Data;
 
 namespace iStorage
 {
@@ -20,6 +22,84 @@ namespace iStorage
 
             conn.Open();
         }
+
+        public void ExportToExcel(string tableName)
+        {
+            try
+            {
+                string query = $"SELECT * FROM {tableName}";
+                using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(query, conn))
+                {
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    using (var workbook = new XLWorkbook())
+                    {
+                        var worksheet = workbook.Worksheets.Add(dt, tableName);
+                        worksheet.Columns().AdjustToContents();
+
+                        using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                        {
+                            saveFileDialog.Title = "Save Excel File";
+                            saveFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx";
+                            saveFileDialog.FileName = $"{tableName}_Export.xlsx";
+
+                            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                            {
+                                workbook.SaveAs(saveFileDialog.FileName);
+                                MessageBox.Show($"Exported to Excel successfully!\n{saveFileDialog.FileName}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error exporting to Excel:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        public void CreateProforma(ListBox companyListBox, ListBox buyerListBox, ListBox itemsListbox, string expireDate, int invoiceNumber, string paymentType)
+        {
+            if (companyListBox.Items == null || buyerListBox.Items == null || itemsListbox.Items == null)
+                return;
+
+            string companyName = companyListBox.Items[0].ToString().Split(' ')[0];
+            string buyerName = buyerListBox.Items[0].ToString().Split(' ')[0];
+
+            using (SQLiteCommand com = new SQLiteCommand(@"
+        INSERT INTO proforma_invoices (
+            companies_id,
+            buyers_id,
+            purchase_time,
+            expire_date,
+            invoice_number,
+            payment_type
+        )
+        VALUES (
+            (SELECT id FROM companies WHERE name = @companyName),
+            (SELECT id FROM buyers WHERE first_name = @buyerName),
+            datetime('now'), 
+            @expireDate,
+            @invoiceNumber,
+            @paymentType
+        );", conn))
+            {
+                com.Parameters.AddWithValue("@companyName", companyName);
+                com.Parameters.AddWithValue("@buyerName", buyerName);
+                com.Parameters.AddWithValue("@expireDate", expireDate);
+                com.Parameters.AddWithValue("@invoiceNumber", invoiceNumber);
+                com.Parameters.AddWithValue("@paymentType", paymentType);
+                com.ExecuteNonQuery();
+            }
+
+            MessageBox.Show("Successfuly created proforma invoice!");
+
+            ProformaForm proformaForm = new ProformaForm();
+            proformaForm.Show();
+        }
+
 
         public void DeleteFrom(ListBox listBox, string tableName, string columnName)
         {
@@ -155,6 +235,38 @@ namespace iStorage
                 com.ExecuteNonQuery();
             }
         }
+
+        public void SaveItem(string name, double price, int stock, string description, string imageName)
+        {
+            using (SQLiteCommand com = new SQLiteCommand("INSERT INTO items (name, price, stock, description, images_id) VALUES (@name, @price, @stock, @description, (SELECT id FROM images WHERE description = @imageName));", conn))
+            {
+                com.Parameters.AddWithValue("@name", name);
+                com.Parameters.AddWithValue("@price", price);
+                com.Parameters.AddWithValue("@stock", stock);
+                com.Parameters.AddWithValue("@description", description);
+                com.Parameters.AddWithValue("@imageName", imageName);
+                com.ExecuteNonQuery();
+            }
+        }
+
+        public string GetImageUrl(int id)
+        {
+            string url = string.Empty;
+
+            using (SQLiteCommand com = new SQLiteCommand("SELECT url FROM images WHERE id = @id;", conn))
+            {
+                com.Parameters.AddWithValue("@id", id);
+                object result = com.ExecuteScalar(); 
+
+                if (result != null)
+                {
+                    url = result.ToString(); 
+                }
+            }
+
+            return url;
+        }
+
 
         public void Close()
         {

@@ -39,6 +39,14 @@
             this.selectCompanyButton = new System.Windows.Forms.Button();
             this.companySettingsPicture = new System.Windows.Forms.PictureBox();
             this.companyPicture = new System.Windows.Forms.PictureBox();
+            this.clearInvoiceListboxes = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.excelButton = new System.Windows.Forms.Button();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.companySettingsPicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.companyPicture)).BeginInit();
             this.SuspendLayout();
@@ -56,12 +64,13 @@
             // 
             // createInvoiceButton
             // 
-            this.createInvoiceButton.Location = new System.Drawing.Point(16, 210);
+            this.createInvoiceButton.Location = new System.Drawing.Point(369, 359);
             this.createInvoiceButton.Name = "createInvoiceButton";
             this.createInvoiceButton.Size = new System.Drawing.Size(131, 49);
             this.createInvoiceButton.TabIndex = 3;
             this.createInvoiceButton.Text = "Create proforma invoice";
             this.createInvoiceButton.UseVisualStyleBackColor = true;
+            this.createInvoiceButton.Click += new System.EventHandler(this.createInvoiceButton_Click);
             // 
             // button1
             // 
@@ -88,6 +97,7 @@
             this.invoiceProductsListbox.FormattingEnabled = true;
             this.invoiceProductsListbox.Location = new System.Drawing.Point(153, 83);
             this.invoiceProductsListbox.Name = "invoiceProductsListbox";
+            this.invoiceProductsListbox.ScrollAlwaysVisible = true;
             this.invoiceProductsListbox.Size = new System.Drawing.Size(162, 355);
             this.invoiceProductsListbox.TabIndex = 9;
             // 
@@ -140,11 +150,103 @@
             this.companyPicture.TabStop = false;
             this.companyPicture.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
+            // clearInvoiceListboxes
+            // 
+            this.clearInvoiceListboxes.Location = new System.Drawing.Point(16, 415);
+            this.clearInvoiceListboxes.Name = "clearInvoiceListboxes";
+            this.clearInvoiceListboxes.Size = new System.Drawing.Size(131, 23);
+            this.clearInvoiceListboxes.TabIndex = 15;
+            this.clearInvoiceListboxes.Text = "Clear invoice";
+            this.clearInvoiceListboxes.UseVisualStyleBackColor = true;
+            this.clearInvoiceListboxes.Click += new System.EventHandler(this.clearInvoiceListboxes_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Cash",
+            "Credit card",
+            "Paypal"});
+            this.comboBox1.Location = new System.Drawing.Point(20, 210);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(127, 21);
+            this.comboBox1.TabIndex = 16;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(20, 191);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 13);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Payment type [!]";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(20, 263);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(127, 20);
+            this.textBox1.TabIndex = 18;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(17, 247);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(131, 13);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Expire date YYYY-MM-DD";
+            // 
+            // excelButton
+            // 
+            this.excelButton.Location = new System.Drawing.Point(36, 343);
+            this.excelButton.Name = "excelButton";
+            this.excelButton.Size = new System.Drawing.Size(92, 23);
+            this.excelButton.TabIndex = 20;
+            this.excelButton.Text = "Export to Excel";
+            this.excelButton.UseVisualStyleBackColor = true;
+            this.excelButton.Click += new System.EventHandler(this.excelButton_Click);
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "buyers",
+            "companies",
+            "cities",
+            "countries",
+            "proforma_invoices",
+            "items",
+            "images"});
+            this.comboBox2.Location = new System.Drawing.Point(20, 316);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(127, 21);
+            this.comboBox2.TabIndex = 21;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(17, 300);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.TabIndex = 22;
+            this.label3.Text = "Table";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(580, 450);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.excelButton);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.clearInvoiceListboxes);
             this.Controls.Add(this.selectCompanyButton);
             this.Controls.Add(this.invoiceSellerListbox);
             this.Controls.Add(this.invoiceBuyerListbox);
@@ -173,10 +275,18 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.PictureBox companyPicture;
         private System.Windows.Forms.PictureBox companySettingsPicture;
-        private System.Windows.Forms.ListBox invoiceProductsListbox;
-        private System.Windows.Forms.ListBox invoiceBuyerListbox;
-        private System.Windows.Forms.ListBox invoiceSellerListbox;
+        public System.Windows.Forms.ListBox invoiceProductsListbox;
+        public System.Windows.Forms.ListBox invoiceBuyerListbox;
+        public System.Windows.Forms.ListBox invoiceSellerListbox;
         private System.Windows.Forms.Button selectCompanyButton;
+        private System.Windows.Forms.Button clearInvoiceListboxes;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button excelButton;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label3;
     }
 }
 

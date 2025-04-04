@@ -40,6 +40,7 @@
             this.sellerAddressTextbox = new System.Windows.Forms.TextBox();
             this.sellerNameTextbox = new System.Windows.Forms.TextBox();
             this.sellerListbox = new System.Windows.Forms.ListBox();
+            this.deleteCheckbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label6
@@ -142,15 +143,27 @@
             this.sellerListbox.FormattingEnabled = true;
             this.sellerListbox.Location = new System.Drawing.Point(12, 33);
             this.sellerListbox.Name = "sellerListbox";
+            this.sellerListbox.ScrollAlwaysVisible = true;
             this.sellerListbox.Size = new System.Drawing.Size(550, 277);
             this.sellerListbox.TabIndex = 15;
             this.sellerListbox.SelectedIndexChanged += new System.EventHandler(this.sellerListbox_SelectedIndexChanged);
+            // 
+            // deleteCheckbox
+            // 
+            this.deleteCheckbox.AutoSize = true;
+            this.deleteCheckbox.Location = new System.Drawing.Point(123, 405);
+            this.deleteCheckbox.Name = "deleteCheckbox";
+            this.deleteCheckbox.Size = new System.Drawing.Size(101, 17);
+            this.deleteCheckbox.TabIndex = 29;
+            this.deleteCheckbox.Text = "Delete from list?";
+            this.deleteCheckbox.UseVisualStyleBackColor = true;
             // 
             // SellerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(573, 450);
+            this.Controls.Add(this.deleteCheckbox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.sellerCityComboBox);
@@ -185,5 +198,6 @@
         private System.Windows.Forms.TextBox sellerAddressTextbox;
         private System.Windows.Forms.TextBox sellerNameTextbox;
         private System.Windows.Forms.ListBox sellerListbox;
+        private System.Windows.Forms.CheckBox deleteCheckbox;
     }
 }

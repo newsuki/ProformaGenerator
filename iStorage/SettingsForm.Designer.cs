@@ -58,7 +58,7 @@
             // 
             // countryNameTextbox
             // 
-            this.countryNameTextbox.Location = new System.Drawing.Point(9, 152);
+            this.countryNameTextbox.Location = new System.Drawing.Point(13, 144);
             this.countryNameTextbox.Name = "countryNameTextbox";
             this.countryNameTextbox.Size = new System.Drawing.Size(100, 20);
             this.countryNameTextbox.TabIndex = 0;
@@ -66,7 +66,7 @@
             // 
             // countryCodeTextbox
             // 
-            this.countryCodeTextbox.Location = new System.Drawing.Point(9, 190);
+            this.countryCodeTextbox.Location = new System.Drawing.Point(13, 182);
             this.countryCodeTextbox.Name = "countryCodeTextbox";
             this.countryCodeTextbox.Size = new System.Drawing.Size(100, 20);
             this.countryCodeTextbox.TabIndex = 1;
@@ -75,7 +75,7 @@
             // 
             this.countrySettingsLabel.AutoSize = true;
             this.countrySettingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.countrySettingsLabel.Location = new System.Drawing.Point(4, 100);
+            this.countrySettingsLabel.Location = new System.Drawing.Point(8, 92);
             this.countrySettingsLabel.Name = "countrySettingsLabel";
             this.countrySettingsLabel.Size = new System.Drawing.Size(104, 25);
             this.countrySettingsLabel.TabIndex = 2;
@@ -84,7 +84,7 @@
             // countryNameLabel
             // 
             this.countryNameLabel.AutoSize = true;
-            this.countryNameLabel.Location = new System.Drawing.Point(6, 136);
+            this.countryNameLabel.Location = new System.Drawing.Point(10, 128);
             this.countryNameLabel.Name = "countryNameLabel";
             this.countryNameLabel.Size = new System.Drawing.Size(72, 13);
             this.countryNameLabel.TabIndex = 3;
@@ -93,7 +93,7 @@
             // countryCodeLabel
             // 
             this.countryCodeLabel.AutoSize = true;
-            this.countryCodeLabel.Location = new System.Drawing.Point(6, 174);
+            this.countryCodeLabel.Location = new System.Drawing.Point(10, 166);
             this.countryCodeLabel.Name = "countryCodeLabel";
             this.countryCodeLabel.Size = new System.Drawing.Size(111, 13);
             this.countryCodeLabel.TabIndex = 4;
@@ -101,7 +101,7 @@
             // 
             // addCountryButton
             // 
-            this.addCountryButton.Location = new System.Drawing.Point(9, 216);
+            this.addCountryButton.Location = new System.Drawing.Point(13, 208);
             this.addCountryButton.Name = "addCountryButton";
             this.addCountryButton.Size = new System.Drawing.Size(99, 23);
             this.addCountryButton.TabIndex = 5;
@@ -123,7 +123,7 @@
             // 
             this.addCityButton.Location = new System.Drawing.Point(8, 395);
             this.addCityButton.Name = "addCityButton";
-            this.addCityButton.Size = new System.Drawing.Size(100, 23);
+            this.addCityButton.Size = new System.Drawing.Size(121, 23);
             this.addCityButton.TabIndex = 11;
             this.addCityButton.Text = "Add city";
             this.addCityButton.UseVisualStyleBackColor = true;
@@ -151,19 +151,19 @@
             // 
             this.postalTextbox.Location = new System.Drawing.Point(9, 329);
             this.postalTextbox.Name = "postalTextbox";
-            this.postalTextbox.Size = new System.Drawing.Size(100, 20);
+            this.postalTextbox.Size = new System.Drawing.Size(120, 20);
             this.postalTextbox.TabIndex = 8;
             // 
             // cityNameTextbox
             // 
             this.cityNameTextbox.Location = new System.Drawing.Point(9, 291);
             this.cityNameTextbox.Name = "cityNameTextbox";
-            this.cityNameTextbox.Size = new System.Drawing.Size(100, 20);
+            this.cityNameTextbox.Size = new System.Drawing.Size(120, 20);
             this.cityNameTextbox.TabIndex = 7;
             // 
             // addImageButton
             // 
-            this.addImageButton.Location = new System.Drawing.Point(129, 216);
+            this.addImageButton.Location = new System.Drawing.Point(133, 208);
             this.addImageButton.Name = "addImageButton";
             this.addImageButton.Size = new System.Drawing.Size(100, 23);
             this.addImageButton.TabIndex = 26;
@@ -174,7 +174,7 @@
             // descriptionLabel
             // 
             this.descriptionLabel.AutoSize = true;
-            this.descriptionLabel.Location = new System.Drawing.Point(126, 174);
+            this.descriptionLabel.Location = new System.Drawing.Point(130, 166);
             this.descriptionLabel.Name = "descriptionLabel";
             this.descriptionLabel.Size = new System.Drawing.Size(93, 13);
             this.descriptionLabel.TabIndex = 25;
@@ -184,7 +184,7 @@
             // urlLabel
             // 
             this.urlLabel.AutoSize = true;
-            this.urlLabel.Location = new System.Drawing.Point(126, 136);
+            this.urlLabel.Location = new System.Drawing.Point(130, 128);
             this.urlLabel.Name = "urlLabel";
             this.urlLabel.Size = new System.Drawing.Size(29, 13);
             this.urlLabel.TabIndex = 24;
@@ -193,7 +193,7 @@
             // 
             // imageDescriptionTextbox
             // 
-            this.imageDescriptionTextbox.Location = new System.Drawing.Point(129, 190);
+            this.imageDescriptionTextbox.Location = new System.Drawing.Point(133, 182);
             this.imageDescriptionTextbox.Name = "imageDescriptionTextbox";
             this.imageDescriptionTextbox.Size = new System.Drawing.Size(235, 20);
             this.imageDescriptionTextbox.TabIndex = 23;
@@ -201,7 +201,7 @@
             // 
             // imageUrlTextbox
             // 
-            this.imageUrlTextbox.Location = new System.Drawing.Point(129, 152);
+            this.imageUrlTextbox.Location = new System.Drawing.Point(133, 144);
             this.imageUrlTextbox.Name = "imageUrlTextbox";
             this.imageUrlTextbox.Size = new System.Drawing.Size(235, 20);
             this.imageUrlTextbox.TabIndex = 22;
@@ -211,7 +211,7 @@
             // 
             this.imagesLabel.AutoSize = true;
             this.imagesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.imagesLabel.Location = new System.Drawing.Point(124, 100);
+            this.imagesLabel.Location = new System.Drawing.Point(128, 92);
             this.imagesLabel.Name = "imagesLabel";
             this.imagesLabel.Size = new System.Drawing.Size(81, 25);
             this.imagesLabel.TabIndex = 21;

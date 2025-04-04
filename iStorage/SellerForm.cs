@@ -13,11 +13,13 @@ namespace iStorage
     public partial class SellerForm : Form
     {
         private Database db;
-        public SellerForm()
+        private MainForm _mainForm;
+        public SellerForm(MainForm mainForm)
         {
             InitializeComponent();
 
             db = new Database();
+            _mainForm = mainForm;
         }
 
         private void SellerForm_Load(object sender, EventArgs e)
@@ -45,7 +47,24 @@ namespace iStorage
             if (sellerListbox.SelectedItem == null)
                 return;
 
-            this.Close();
+            if (_mainForm.invoiceSellerListbox.Items.Count == 0 && !deleteCheckbox.Checked)
+            {
+                List<string> selectedItems = new List<string>();
+
+                foreach (var item in sellerListbox.SelectedItems)
+                {
+                    selectedItems.Add(item.ToString());
+                }
+
+                _mainForm.AddSelectedItemsToListBox(selectedItems, _mainForm.invoiceSellerListbox);
+                this.Close();
+            }
+            else if(deleteCheckbox.Checked)
+            {
+                db.Open();
+                db.DeleteFrom(sellerListbox, "companies", "name");
+                db.Close();
+            }
         }
     }
 }

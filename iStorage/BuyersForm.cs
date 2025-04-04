@@ -13,11 +13,13 @@ namespace iStorage
     public partial class BuyersForm : Form
     {
         private Database db;
-        public BuyersForm()
+        private MainForm _mainForm;
+        public BuyersForm(MainForm mainForm)
         {
             InitializeComponent();
 
             db = new Database();
+            _mainForm = mainForm;
         }
 
         private void BuyersForm_Load(object sender, EventArgs e)
@@ -45,7 +47,29 @@ namespace iStorage
             if (buyerListbox.SelectedItem == null)
                 return;
 
-            this.Close();
+            if (_mainForm.invoiceBuyerListbox.Items.Count == 0 && !deleteCheckbox.Checked)
+            {
+                List<string> selectedItems = new List<string>();
+
+                foreach (var item in buyerListbox.SelectedItems)
+                {
+                    selectedItems.Add(item.ToString());
+                }
+
+                _mainForm.AddSelectedItemsToListBox(selectedItems, _mainForm.invoiceBuyerListbox);
+                this.Close();
+            }
+            else if (deleteCheckbox.Checked)
+            {
+                db.Open();
+                db.DeleteFrom(buyerListbox, "buyers", "first_name");
+                db.Close();
+            }
+        }
+
+        private void deleteCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
