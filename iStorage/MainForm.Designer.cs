@@ -94,28 +94,37 @@
             // 
             // invoiceProductsListbox
             // 
+            this.invoiceProductsListbox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.invoiceProductsListbox.FormattingEnabled = true;
             this.invoiceProductsListbox.Location = new System.Drawing.Point(153, 83);
             this.invoiceProductsListbox.Name = "invoiceProductsListbox";
             this.invoiceProductsListbox.ScrollAlwaysVisible = true;
             this.invoiceProductsListbox.Size = new System.Drawing.Size(162, 355);
             this.invoiceProductsListbox.TabIndex = 9;
+            this.invoiceProductsListbox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.invoiceProductsListbox_DrawItem);
+            this.invoiceProductsListbox.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.invoiceProductsListbox_MeasureItem);
             // 
             // invoiceBuyerListbox
             // 
+            this.invoiceBuyerListbox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.invoiceBuyerListbox.FormattingEnabled = true;
             this.invoiceBuyerListbox.Location = new System.Drawing.Point(321, 83);
             this.invoiceBuyerListbox.Name = "invoiceBuyerListbox";
             this.invoiceBuyerListbox.Size = new System.Drawing.Size(245, 121);
             this.invoiceBuyerListbox.TabIndex = 11;
+            this.invoiceBuyerListbox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.invoiceBuyerListbox_DrawItem);
+            this.invoiceBuyerListbox.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.invoiceBuyerListbox_MeasureItem);
             // 
             // invoiceSellerListbox
             // 
+            this.invoiceSellerListbox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.invoiceSellerListbox.FormattingEnabled = true;
             this.invoiceSellerListbox.Location = new System.Drawing.Point(321, 210);
             this.invoiceSellerListbox.Name = "invoiceSellerListbox";
             this.invoiceSellerListbox.Size = new System.Drawing.Size(245, 121);
             this.invoiceSellerListbox.TabIndex = 12;
+            this.invoiceSellerListbox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.invoiceSellerListbox_DrawItem);
+            this.invoiceSellerListbox.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.invoiceSellerListbox_MeasureItem);
             this.invoiceSellerListbox.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
             // selectCompanyButton

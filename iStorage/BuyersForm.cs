@@ -27,7 +27,7 @@ namespace iStorage
             db.Open();
 
             db.LoadDataIntoComboBox("cities", "name", cityComboBox);
-            db.LoadData(buyerListbox, "buyers");
+            db.LoadBuyersData(buyerListbox);
 
             db.Close();
         }
@@ -36,8 +36,8 @@ namespace iStorage
         {
             db.Open();
 
-            db.SaveBuyer(firstNameTextbox.Text, lastNameTextbox.Text, addressTextbox.Text, phoneTextbox.Text, cityComboBox.SelectedItem.ToString());
-            db.LoadData(buyerListbox, "buyers");
+            db.SaveBuyer(firstNameTextbox.Text, addressTextbox.Text, phoneTextbox.Text, cityComboBox.SelectedItem.ToString());
+            db.LoadBuyersData(buyerListbox);
 
             db.Close();
         }
@@ -62,7 +62,7 @@ namespace iStorage
             else if (deleteCheckbox.Checked)
             {
                 db.Open();
-                db.DeleteFrom(buyerListbox, "buyers", "first_name");
+                db.DeleteFrom(buyerListbox, "buyers", "name");
                 db.Close();
             }
         }

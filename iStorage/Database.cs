@@ -60,13 +60,19 @@ namespace iStorage
         }
 
 
-        public void CreateProforma(ListBox companyListBox, ListBox buyerListBox, ListBox itemsListbox, string expireDate, int invoiceNumber, string paymentType)
+        public void CreateProforma(ListBox companyListBox, ListBox buyerListBox, ListBox itemsListBox, string expireDate, int invoiceNumber, string paymentType)
         {
-            if (companyListBox.Items == null || buyerListBox.Items == null || itemsListbox.Items == null)
+            if (companyListBox.Items == null || buyerListBox.Items == null || itemsListBox.Items == null)
                 return;
 
             string companyName = companyListBox.Items[0].ToString().Split(' ')[0];
             string buyerName = buyerListBox.Items[0].ToString().Split(' ')[0];
+
+            List<string> itemNames = new List<string>();
+            foreach (var item in itemsListBox.Items)
+            {
+                itemNames.Add(item.ToString());
+            }
 
             using (SQLiteCommand com = new SQLiteCommand(@"
         INSERT INTO proforma_invoices (
@@ -79,7 +85,7 @@ namespace iStorage
         )
         VALUES (
             (SELECT id FROM companies WHERE name = @companyName),
-            (SELECT id FROM buyers WHERE first_name = @buyerName),
+            (SELECT id FROM buyers WHERE name = @buyerName),
             datetime('now'), 
             @expireDate,
             @invoiceNumber,
@@ -94,9 +100,9 @@ namespace iStorage
                 com.ExecuteNonQuery();
             }
 
-            MessageBox.Show("Successfuly created proforma invoice!");
+            MessageBox.Show("Successfully created proforma invoice!");
 
-            ProformaForm proformaForm = new ProformaForm();
+            ProformaForm proformaForm = new ProformaForm(companyName, buyerName, itemNames, expireDate, invoiceNumber, paymentType);
             proformaForm.Show();
         }
 
@@ -201,12 +207,11 @@ namespace iStorage
             }
         }
 
-        public void SaveBuyer(string firstName, string lastName, string address, string phone, string cityName)
+        public void SaveBuyer(string name, string address, string phone, string cityName)
         {
-            using (SQLiteCommand com = new SQLiteCommand("INSERT INTO buyers (first_name, last_name, address, phone, cities_id) VALUES (@firstname, @lastname, @address, @phone, (SELECT id FROM cities WHERE name = @cityName));", conn))
+            using (SQLiteCommand com = new SQLiteCommand("INSERT INTO buyers (name, address, phone, cities_id) VALUES (@name, @address, @phone, (SELECT id FROM cities WHERE name = @cityName));", conn))
             {
-                com.Parameters.AddWithValue("@firstname", firstName);
-                com.Parameters.AddWithValue("@lastname", lastName);
+                com.Parameters.AddWithValue("@name", name);
                 com.Parameters.AddWithValue("@address", address);
                 com.Parameters.AddWithValue("@phone", phone);
                 com.Parameters.AddWithValue("@cityName", cityName);
@@ -241,12 +246,135 @@ namespace iStorage
             using (SQLiteCommand com = new SQLiteCommand("INSERT INTO items (name, price, stock, description, images_id) VALUES (@name, @price, @stock, @description, (SELECT id FROM images WHERE description = @imageName));", conn))
             {
                 com.Parameters.AddWithValue("@name", name);
-                com.Parameters.AddWithValue("@price", price);
+                com.Parameters.AddWithValue("@price", price + "€");
                 com.Parameters.AddWithValue("@stock", stock);
                 com.Parameters.AddWithValue("@description", description);
                 com.Parameters.AddWithValue("@imageName", imageName);
                 com.ExecuteNonQuery();
             }
+        }
+
+        public void LoadItemsData(ListBox listBox)
+        {
+            listBox.Items.Clear();
+
+            string query = "PRAGMA table_info(items);";
+            using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+            {
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    List<int> columnIndexesToSkip = new List<int>();
+                    int index = 0;
+
+                    while (reader.Read())
+                    {
+                        string columnName = reader["name"].ToString();
+
+                        if (columnName == "id" || columnName == "images_id" || columnName == "description" || columnName == "stock")
+                        {
+                            columnIndexesToSkip.Add(index);
+                        }
+
+                        index++;
+                    }
+
+                    string selectQuery = $"SELECT * FROM items;";
+                    using (SQLiteCommand com = new SQLiteCommand(selectQuery, conn))
+                    {
+                        using (SQLiteDataReader dataReader = com.ExecuteReader())
+                        {
+                            while (dataReader.Read())
+                            {
+                                List<string> rowValues = new List<string>();
+
+                                for (int i = 0; i < dataReader.FieldCount; i++)
+                                {
+                                    if (!columnIndexesToSkip.Contains(i))
+                                    {
+                                        object value = dataReader[i];
+
+                                        if (value is IFormattable formattable && (value is decimal || value is double || value is float))
+                                            rowValues.Add(formattable.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "€");
+                                        else
+                                            rowValues.Add(value.ToString());
+                                    }
+                                }
+
+                                listBox.Items.Add(string.Join(" | ", rowValues));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        public void LoadCompaniesData(ListBox listBox)
+        {
+            listBox.Items.Clear();
+
+            string query = @"
+        SELECT companies.name, companies.address, companies.phone, cities.name as city_name
+        FROM companies
+        JOIN cities ON companies.cities_id = cities.id;
+    ";
+
+            using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+            {
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string name = reader["name"].ToString();
+                        string address = reader["address"].ToString();
+                        string phone = reader["phone"].ToString();
+                        string cityName = reader["city_name"].ToString();
+
+                        listBox.Items.Add($"{name} | {address} | {phone} | {cityName}");
+                    }
+                }
+            }
+        }
+
+        public void LoadBuyersData(ListBox listBox)
+        {
+            listBox.Items.Clear();
+
+            string query = @"
+        SELECT buyers.name, buyers.address, buyers.phone, cities.name as city_name
+        FROM buyers
+        JOIN cities ON buyers.cities_id = cities.id;
+    ";
+
+            using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+            {
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string name = reader["name"].ToString();
+                        string address = reader["address"].ToString();
+                        string phone = reader["phone"].ToString();
+                        string cityName = reader["city_name"].ToString();
+
+                        listBox.Items.Add($"{name} | {address} | {phone} | {cityName}");
+                    }
+                }
+            }
+        }
+        public int? GetImageIdByName(string name)
+        {
+            using (SQLiteCommand com = new SQLiteCommand("SELECT images_id FROM items WHERE name = @name;", conn))
+            {
+                com.Parameters.AddWithValue("@name", name);
+                object result = com.ExecuteScalar();
+
+                if (result != null && int.TryParse(result.ToString(), out int id))
+                    return id;
+            }
+
+            return null;
         }
 
         public string GetImageUrl(int id)

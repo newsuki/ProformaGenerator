@@ -31,13 +31,11 @@
             this.buyerListbox = new System.Windows.Forms.ListBox();
             this.firstNameTextbox = new System.Windows.Forms.TextBox();
             this.addressTextbox = new System.Windows.Forms.TextBox();
-            this.lastNameTextbox = new System.Windows.Forms.TextBox();
             this.phoneTextbox = new System.Windows.Forms.TextBox();
             this.addBuyerButton = new System.Windows.Forms.Button();
             this.selectBuyerLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cityComboBox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -64,21 +62,14 @@
             // 
             // addressTextbox
             // 
-            this.addressTextbox.Location = new System.Drawing.Point(229, 379);
+            this.addressTextbox.Location = new System.Drawing.Point(126, 379);
             this.addressTextbox.Name = "addressTextbox";
             this.addressTextbox.Size = new System.Drawing.Size(100, 20);
             this.addressTextbox.TabIndex = 2;
             // 
-            // lastNameTextbox
-            // 
-            this.lastNameTextbox.Location = new System.Drawing.Point(123, 379);
-            this.lastNameTextbox.Name = "lastNameTextbox";
-            this.lastNameTextbox.Size = new System.Drawing.Size(100, 20);
-            this.lastNameTextbox.TabIndex = 3;
-            // 
             // phoneTextbox
             // 
-            this.phoneTextbox.Location = new System.Drawing.Point(335, 379);
+            this.phoneTextbox.Location = new System.Drawing.Point(232, 379);
             this.phoneTextbox.Name = "phoneTextbox";
             this.phoneTextbox.Size = new System.Drawing.Size(100, 20);
             this.phoneTextbox.TabIndex = 4;
@@ -117,23 +108,14 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(14, 363);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 13);
+            this.label2.Size = new System.Drawing.Size(52, 13);
             this.label2.TabIndex = 8;
-            this.label2.Text = "First name";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(120, 363);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(56, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Last name";
+            this.label2.Text = "Full name";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(226, 363);
+            this.label4.Location = new System.Drawing.Point(123, 363);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 13);
             this.label4.TabIndex = 11;
@@ -143,7 +125,7 @@
             // 
             this.cityComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cityComboBox.FormattingEnabled = true;
-            this.cityComboBox.Location = new System.Drawing.Point(442, 379);
+            this.cityComboBox.Location = new System.Drawing.Point(339, 379);
             this.cityComboBox.Name = "cityComboBox";
             this.cityComboBox.Size = new System.Drawing.Size(121, 21);
             this.cityComboBox.TabIndex = 12;
@@ -151,7 +133,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(332, 363);
+            this.label5.Location = new System.Drawing.Point(229, 363);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(76, 13);
             this.label5.TabIndex = 13;
@@ -160,7 +142,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(439, 363);
+            this.label6.Location = new System.Drawing.Point(336, 363);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(64, 13);
             this.label6.TabIndex = 14;
@@ -187,13 +169,11 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cityComboBox);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.selectBuyerLabel);
             this.Controls.Add(this.addBuyerButton);
             this.Controls.Add(this.phoneTextbox);
-            this.Controls.Add(this.lastNameTextbox);
             this.Controls.Add(this.addressTextbox);
             this.Controls.Add(this.firstNameTextbox);
             this.Controls.Add(this.buyerListbox);
@@ -210,13 +190,11 @@
         private System.Windows.Forms.ListBox buyerListbox;
         private System.Windows.Forms.TextBox firstNameTextbox;
         private System.Windows.Forms.TextBox addressTextbox;
-        private System.Windows.Forms.TextBox lastNameTextbox;
         private System.Windows.Forms.TextBox phoneTextbox;
         private System.Windows.Forms.Button addBuyerButton;
         private System.Windows.Forms.Label selectBuyerLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cityComboBox;
         private System.Windows.Forms.Label label5;

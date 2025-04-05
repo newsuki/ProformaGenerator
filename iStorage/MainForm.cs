@@ -83,13 +83,11 @@ namespace iStorage
         {
             foreach (string item in items)
             {
-                string[] splitItems = item.Split('|');
-                foreach (string splitItem in splitItems)
-                {
-                    listBox.Items.Add(splitItem.Trim());
-                }
+                string formattedItem = item.Replace("|", Environment.NewLine);
+                listBox.Items.Add(formattedItem);
             }
         }
+
 
         private void createInvoiceButton_Click(object sender, EventArgs e)
         {
@@ -106,6 +104,78 @@ namespace iStorage
         private void excelButton_Click(object sender, EventArgs e)
         {
             db.ExportToExcel(comboBox2.SelectedItem.ToString());
+        }
+
+        private void invoiceBuyerListbox_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            ListBox listBox = sender as ListBox;
+            string itemText = listBox.Items[e.Index].ToString();
+            SizeF textSize = e.Graphics.MeasureString(itemText, listBox.Font, listBox.Width);
+            e.ItemHeight = (int)textSize.Height;
+        }
+
+        private void invoiceBuyerListbox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            e.DrawBackground();
+            ListBox listBox = sender as ListBox;
+            string itemText = listBox.Items[e.Index].ToString();
+            using (Brush textBrush = new SolidBrush(e.ForeColor))
+            {
+                e.Graphics.DrawString(itemText, listBox.Font, textBrush, e.Bounds);
+            }
+            e.DrawFocusRectangle();
+        }
+
+        private void invoiceProductsListbox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            e.DrawBackground();
+            ListBox listBox = sender as ListBox;
+            string itemText = listBox.Items[e.Index].ToString();
+            using (Brush textBrush = new SolidBrush(e.ForeColor))
+            {
+                e.Graphics.DrawString(itemText, listBox.Font, textBrush, e.Bounds);
+            }
+            e.DrawFocusRectangle();
+        }
+
+        private void invoiceProductsListbox_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            ListBox listBox = sender as ListBox;
+            string itemText = listBox.Items[e.Index].ToString();
+            SizeF textSize = e.Graphics.MeasureString(itemText, listBox.Font, listBox.Width);
+            e.ItemHeight = (int)textSize.Height;
+        }
+
+        private void invoiceSellerListbox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            e.DrawBackground();
+            ListBox listBox = sender as ListBox;
+            string itemText = listBox.Items[e.Index].ToString();
+            using (Brush textBrush = new SolidBrush(e.ForeColor))
+            {
+                e.Graphics.DrawString(itemText, listBox.Font, textBrush, e.Bounds);
+            }
+            e.DrawFocusRectangle();
+        }
+
+        private void invoiceSellerListbox_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            ListBox listBox = sender as ListBox;
+            string itemText = listBox.Items[e.Index].ToString();
+            SizeF textSize = e.Graphics.MeasureString(itemText, listBox.Font, listBox.Width);
+            e.ItemHeight = (int)textSize.Height;
         }
     }
 }

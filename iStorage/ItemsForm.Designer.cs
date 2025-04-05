@@ -83,6 +83,7 @@
             0,
             0,
             0});
+            this.amountNumericUpDown.Visible = false;
             this.amountNumericUpDown.ValueChanged += new System.EventHandler(this.amountNumericUpDown_ValueChanged);
             // 
             // addItemDatabaseButton
@@ -144,6 +145,7 @@
             this.label2.Size = new System.Drawing.Size(43, 13);
             this.label2.TabIndex = 10;
             this.label2.Text = "Amount";
+            this.label2.Visible = false;
             // 
             // label3
             // 

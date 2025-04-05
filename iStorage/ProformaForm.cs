@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 
@@ -16,9 +17,33 @@ namespace iStorage
 {
     public partial class ProformaForm : Form
     {
-        public ProformaForm()
+        public ProformaForm(string companyName, string buyerName, List<string> items, string expireDate, int invoiceNumber, string paymentType)
         {
             InitializeComponent();
+
+            PopulateProforma(companyName, buyerName, items, expireDate, invoiceNumber, paymentType);
+        }
+
+        private void PopulateProforma(string companyName, string buyerName, List<string> items, string expireDate, int invoiceNumber, string paymentType)
+        {
+            StringBuilder proformaText = new StringBuilder();
+
+            proformaText.AppendLine("PROFORMA INVOICE");
+            proformaText.AppendLine("-----------------");
+            proformaText.AppendLine($"Invoice Number: {invoiceNumber}");
+            proformaText.AppendLine($"Company: {companyName}");
+            proformaText.AppendLine($"Buyer: {buyerName}");
+            proformaText.AppendLine($"Due date: {expireDate}");
+            proformaText.AppendLine($"Payment Type: {paymentType}");
+            proformaText.AppendLine("\nProducts:");
+            proformaText.AppendLine("-----------------");
+
+            foreach (var item in items)
+            {
+                proformaText.AppendLine(item);
+            }
+
+            proformaRichBox.Text = proformaText.ToString();
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)

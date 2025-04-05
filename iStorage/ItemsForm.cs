@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace iStorage
 {
@@ -28,7 +29,7 @@ namespace iStorage
 
             db.Open();
 
-            db.LoadData(itemListbox, "items");
+            db.LoadItemsData(itemListbox);
             db.LoadDataIntoComboBox("images", "description", imageCombobox);
 
             db.Close();
@@ -43,8 +44,8 @@ namespace iStorage
         {
             db.Open();
 
-            db.SaveItem(productNameTextbox.Text, Convert.ToDouble(priceTextbox.Text), Convert.ToInt32(stockNumericUpDown.Value), productDescriptionTextbox.Text, imageCombobox.SelectedItem.ToString());
-            db.LoadData(itemListbox, "items");
+            db.SaveItem(productNameTextbox.Text, Convert.ToDouble(priceTextbox.Text, CultureInfo.InvariantCulture), Convert.ToInt32(stockNumericUpDown.Value), productDescriptionTextbox.Text, imageCombobox.SelectedItem.ToString());
+            db.LoadItemsData(itemListbox);
 
             db.Close();
         }
@@ -72,21 +73,28 @@ namespace iStorage
 
             string selectedItem = itemListbox.SelectedItem.ToString();
             string[] itemParts = selectedItem.Split('|');
-            if (itemParts.Length < 5)
+            if (itemParts.Length < 2)
                 return;
 
-            string imageIdStr = itemParts[4].Trim();
-
-            if (!int.TryParse(imageIdStr, out int imageId))
-                return;
+            string itemName = itemParts[0].Trim(); 
 
             db.Open();
 
-            string imageUrl = db.GetImageUrl(imageId);
+            int? imageId = db.GetImageIdByName(itemName);
+            if (imageId == null)
+            {
+                db.Close();
+                return;
+            }
+
+            string imageUrl = db.GetImageUrl(imageId.Value);
 
             db.Close();
 
-            pictureBox1.Load(imageUrl);
+            if (!string.IsNullOrEmpty(imageUrl))
+            {
+                pictureBox1.Load(imageUrl);
+            }
         }
 
         private void amountNumericUpDown_ValueChanged(object sender, EventArgs e)

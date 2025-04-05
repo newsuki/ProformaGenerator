@@ -26,7 +26,7 @@ namespace iStorage
         {
             db.Open();
 
-            db.LoadData(sellerListbox, "companies");
+            db.LoadCompaniesData(sellerListbox);
             db.LoadDataIntoComboBox("cities", "name", sellerCityComboBox);
 
             db.Close();
@@ -37,7 +37,7 @@ namespace iStorage
             db.Open();
 
             db.SaveSeller(sellerNameTextbox.Text, sellerAddressTextbox.Text, sellerPhoneTextbox.Text, sellerCityComboBox.SelectedItem.ToString());
-            db.LoadData(sellerListbox, "companies");
+            db.LoadCompaniesData(sellerListbox);
 
             db.Close();
         }
