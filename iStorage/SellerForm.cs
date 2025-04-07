@@ -47,7 +47,7 @@ namespace iStorage
             if (sellerListbox.SelectedItem == null)
                 return;
 
-            if (_mainForm.invoiceSellerListbox.Items.Count == 0 && !deleteCheckbox.Checked)
+            if (_mainForm.sellerRichTextbox.Text == "" && !deleteCheckbox.Checked)
             {
                 List<string> selectedItems = new List<string>();
 
@@ -56,7 +56,8 @@ namespace iStorage
                     selectedItems.Add(item.ToString());
                 }
 
-                _mainForm.AddSelectedItemsToListBox(selectedItems, _mainForm.invoiceSellerListbox);
+                string formattedText = sellerListbox.SelectedItem.ToString().Replace("|", "\n");
+                _mainForm.sellerRichTextbox.Text = formattedText;
                 this.Close();
             }
             else if(deleteCheckbox.Checked)

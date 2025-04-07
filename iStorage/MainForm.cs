@@ -1,8 +1,11 @@
-﻿using System;
+﻿using com.itextpdf.text.pdf;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +16,7 @@ namespace iStorage
     public partial class MainForm : Form
     {
         private Database db;
+        public ItemsForm itemsForm;
 
         private readonly Random random = new Random();
         public MainForm()
@@ -24,8 +28,8 @@ namespace iStorage
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            comboBox1.SelectedIndex = 1;
-            comboBox2.SelectedIndex = 2;    
+            comboBox2.SelectedIndex = 2;
+            dateTimePicker1.CustomFormat = "dd-MM-yyyy";
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -62,7 +66,7 @@ namespace iStorage
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ItemsForm itemsForm = new ItemsForm(this);
+            itemsForm = new ItemsForm(this);
             itemsForm.Show();
         }
 
@@ -74,8 +78,8 @@ namespace iStorage
 
         private void clearInvoiceListboxes_Click(object sender, EventArgs e)
         {
-            invoiceBuyerListbox.Items.Clear();
-            invoiceSellerListbox.Items.Clear();
+            sellerRichTextbox.Clear();
+            buyerRichTextbox.Clear();
             invoiceProductsListbox.Items.Clear();
         }
 
@@ -91,12 +95,28 @@ namespace iStorage
 
         private void createInvoiceButton_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "")
+            if (string.IsNullOrWhiteSpace(sellerRichTextbox.Text) ||
+                string.IsNullOrWhiteSpace(buyerRichTextbox.Text) ||
+                invoiceProductsListbox.Items.Count == 0)
+            {
+                MessageBox.Show("Buyer, seller, or item entries are empty!");
                 return;
+            }
+
+
 
             db.Open();
 
-            db.CreateProforma(invoiceSellerListbox, invoiceBuyerListbox, invoiceProductsListbox, textBox1.Text, random.Next(600000, 1000001), comboBox1.SelectedItem.ToString());
+            db.CreateProforma(sellerRichTextbox, buyerRichTextbox, invoiceProductsListbox, dateTimePicker1.Value.ToString(), random.Next(600000, 1000001), itemsForm.price);
+
+            var listBoxData = invoiceProductsListbox.Items
+                    .Cast<InvoiceItem>()
+                    .Select(item => $"{item.ItemName} x{item.Quantity} ${item.TotalPrice:0.00} \n {item.ItemDescription}")
+                    .ToList();
+            var richTextBox1Data = buyerRichTextbox.Text;
+            var richTextBox2Data = sellerRichTextbox.Text;
+
+            history.Add((listBoxData, richTextBox1Data, richTextBox2Data));
 
             db.Close();
         }
@@ -176,6 +196,47 @@ namespace iStorage
             string itemText = listBox.Items[e.Index].ToString();
             SizeF textSize = e.Graphics.MeasureString(itemText, listBox.Font, listBox.Width);
             e.ItemHeight = (int)textSize.Height;
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (invoiceProductsListbox.SelectedIndex != -1)
+            {
+                InvoiceItem selectedItem = (InvoiceItem)invoiceProductsListbox.SelectedItem;
+
+                double currentPrice = itemsForm.price;
+
+                currentPrice -= selectedItem.TotalPrice;
+
+                itemsForm.price = currentPrice;
+
+                invoiceProductsListbox.Items.RemoveAt(invoiceProductsListbox.SelectedIndex);
+
+                label6.Text = "Total: " + currentPrice.ToString("0.00", CultureInfo.InvariantCulture);
+            }
+        }
+
+        private List<(List<string> listBoxData, string richTextBox1Data, string richTextBox2Data)> history = new List<(List<string>, string, string)>();
+
+        private void proformaHistoryButton_Click(object sender, EventArgs e)
+        {
+            HistoryForm historyForm = new HistoryForm(history);
+            historyForm.Show();
+        }
+
+        public void LoadHistoryData(List<string> listBoxData, string richTextBox1Data, string richTextBox2Data)
+        {
+            invoiceProductsListbox.Items.Clear();
+
+            invoiceProductsListbox.Items.AddRange(listBoxData.ToArray());
+
+            buyerRichTextbox.Text = richTextBox1Data;
+            sellerRichTextbox.Text = richTextBox2Data;
         }
     }
 }

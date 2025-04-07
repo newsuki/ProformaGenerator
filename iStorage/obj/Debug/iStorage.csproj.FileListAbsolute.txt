@@ -54,3 +54,4 @@ D:\My Projects\ProformaGenerator\iStorage\bin\Debug\BouncyCastle.Cryptography.dl
 D:\My Projects\ProformaGenerator\iStorage\bin\Debug\itextsharp.dll
 D:\My Projects\ProformaGenerator\iStorage\bin\Debug\BouncyCastle.Cryptography.xml
 D:\My Projects\ProformaGenerator\iStorage\bin\Debug\itextsharp.xml
+D:\My Projects\ProformaGenerator\iStorage\obj\Debug\iStorage.HistoryForm.resources

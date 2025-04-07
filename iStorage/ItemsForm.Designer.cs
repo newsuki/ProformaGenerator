@@ -39,8 +39,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.stockNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.imageCombobox = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -48,7 +46,6 @@
             this.deleteItemButton = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.amountNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.stockNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,7 +61,7 @@
             // 
             // amountNumericUpDown
             // 
-            this.amountNumericUpDown.Location = new System.Drawing.Point(12, 53);
+            this.amountNumericUpDown.Location = new System.Drawing.Point(12, 99);
             this.amountNumericUpDown.Maximum = new decimal(new int[] {
             99,
             0,
@@ -83,7 +80,6 @@
             0,
             0,
             0});
-            this.amountNumericUpDown.Visible = false;
             this.amountNumericUpDown.ValueChanged += new System.EventHandler(this.amountNumericUpDown_ValueChanged);
             // 
             // addItemDatabaseButton
@@ -98,7 +94,7 @@
             // 
             // addItemInvoiceButton
             // 
-            this.addItemInvoiceButton.Location = new System.Drawing.Point(12, 79);
+            this.addItemInvoiceButton.Location = new System.Drawing.Point(12, 125);
             this.addItemInvoiceButton.Name = "addItemInvoiceButton";
             this.addItemInvoiceButton.Size = new System.Drawing.Size(199, 37);
             this.addItemInvoiceButton.TabIndex = 3;
@@ -108,14 +104,14 @@
             // 
             // productNameTextbox
             // 
-            this.productNameTextbox.Location = new System.Drawing.Point(12, 136);
+            this.productNameTextbox.Location = new System.Drawing.Point(12, 182);
             this.productNameTextbox.Name = "productNameTextbox";
             this.productNameTextbox.Size = new System.Drawing.Size(199, 20);
             this.productNameTextbox.TabIndex = 4;
             // 
             // priceTextbox
             // 
-            this.priceTextbox.Location = new System.Drawing.Point(12, 180);
+            this.priceTextbox.Location = new System.Drawing.Point(12, 226);
             this.priceTextbox.Name = "priceTextbox";
             this.priceTextbox.Size = new System.Drawing.Size(199, 20);
             this.priceTextbox.TabIndex = 5;
@@ -131,7 +127,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(72, 9);
+            this.label1.Location = new System.Drawing.Point(12, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 29);
             this.label1.TabIndex = 9;
@@ -140,17 +136,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 39);
+            this.label2.Location = new System.Drawing.Point(12, 85);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 13);
+            this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 10;
-            this.label2.Text = "Amount";
-            this.label2.Visible = false;
+            this.label2.Text = "Quantity";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 120);
+            this.label3.Location = new System.Drawing.Point(12, 166);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 13);
             this.label3.TabIndex = 11;
@@ -159,27 +154,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 164);
+            this.label4.Location = new System.Drawing.Point(12, 210);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(70, 13);
             this.label4.TabIndex = 12;
             this.label4.Text = "Product price";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 207);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Stock";
-            // 
-            // stockNumericUpDown
-            // 
-            this.stockNumericUpDown.Location = new System.Drawing.Point(14, 223);
-            this.stockNumericUpDown.Name = "stockNumericUpDown";
-            this.stockNumericUpDown.Size = new System.Drawing.Size(71, 20);
-            this.stockNumericUpDown.TabIndex = 14;
             // 
             // imageCombobox
             // 
@@ -245,8 +224,6 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.imageCombobox);
-            this.Controls.Add(this.stockNumericUpDown);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -262,7 +239,6 @@
             this.Text = "Select products";
             this.Load += new System.EventHandler(this.ItemsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.amountNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.stockNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -282,8 +258,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown stockNumericUpDown;
         private System.Windows.Forms.ComboBox imageCombobox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;

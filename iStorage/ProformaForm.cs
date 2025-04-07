@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,34 +18,49 @@ namespace iStorage
 {
     public partial class ProformaForm : Form
     {
-        public ProformaForm(string companyName, string buyerName, List<string> items, string expireDate, int invoiceNumber, string paymentType)
+        public ProformaForm(string companyName, string buyerName, List<string> items, string expireDate, int invoiceNumber, double total)
         {
             InitializeComponent();
 
-            PopulateProforma(companyName, buyerName, items, expireDate, invoiceNumber, paymentType);
+            PopulateProforma(companyName, buyerName, items, expireDate, invoiceNumber, total);
         }
 
-        private void PopulateProforma(string companyName, string buyerName, List<string> items, string expireDate, int invoiceNumber, string paymentType)
+        private void PopulateProforma(string companyName, string buyerName, List<string> items, string expireDate, int invoiceNumber, double total)
         {
-            StringBuilder proformaText = new StringBuilder();
+            proformaRichBox.Clear();
+            proformaRichBox.Font = new System.Drawing.Font("Segoe UI", 10);
 
-            proformaText.AppendLine("PROFORMA INVOICE");
-            proformaText.AppendLine("-----------------");
-            proformaText.AppendLine($"Invoice Number: {invoiceNumber}");
-            proformaText.AppendLine($"Company: {companyName}");
-            proformaText.AppendLine($"Buyer: {buyerName}");
-            proformaText.AppendLine($"Due date: {expireDate}");
-            proformaText.AppendLine($"Payment Type: {paymentType}");
-            proformaText.AppendLine("\nProducts:");
-            proformaText.AppendLine("-----------------");
+            void AppendLine(string text, FontStyle style, Color color, int size = 10)
+            {
+                proformaRichBox.SelectionStart = proformaRichBox.TextLength;
+                proformaRichBox.SelectionLength = 0;
+
+                proformaRichBox.SelectionColor = color;
+                proformaRichBox.SelectionFont = new System.Drawing.Font("Segoe UI", size, style);
+                proformaRichBox.AppendText(text + Environment.NewLine);
+                proformaRichBox.SelectionColor = proformaRichBox.ForeColor;
+            }
+
+            // Header
+            AppendLine("PROFORMA INVOICE", FontStyle.Bold, Color.DarkBlue, 14);
+            AppendLine("____________________________", FontStyle.Regular, Color.Gray);
+
+            // Details
+            AppendLine($"Invoice Number: {invoiceNumber}", FontStyle.Bold, Color.Black);
+            AppendLine($"Company: {companyName}", FontStyle.Regular, Color.Black);
+            AppendLine($"Buyer: {buyerName}", FontStyle.Regular, Color.Black);
+            AppendLine($"Due date: {expireDate}", FontStyle.Regular, Color.Black);
+            AppendLine($"TOTAL: {total.ToString("0.00", CultureInfo.InvariantCulture)}", FontStyle.Bold, Color.DarkRed);
+
+            AppendLine("\nProducts:", FontStyle.Bold, Color.DarkGreen, 12);
+            AppendLine("____________________________", FontStyle.Regular, Color.Gray);
 
             foreach (var item in items)
             {
-                proformaText.AppendLine(item);
+                AppendLine($"• {item}", FontStyle.Regular, Color.Black);
             }
-
-            proformaRichBox.Text = proformaText.ToString();
         }
+
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {

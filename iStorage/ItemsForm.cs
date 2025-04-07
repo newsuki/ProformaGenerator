@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
+using iTextSharp.text.pdf.parser.clipper;
 
 namespace iStorage
 {
@@ -15,103 +16,170 @@ namespace iStorage
     {
         private Database db;
         private MainForm _mainForm;
+
         public ItemsForm(MainForm mainForm)
         {
             InitializeComponent();
 
-            db = new Database();
-            _mainForm = mainForm;
+            try
+            {
+                db = new Database();
+                _mainForm = mainForm;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error initializing form: " + ex.Message);
+            }
         }
 
         private void ItemsForm_Load(object sender, EventArgs e)
         {
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            try
+            {
+                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
 
-            db.Open();
-
-            db.LoadItemsData(itemListbox);
-            db.LoadDataIntoComboBox("images", "description", imageCombobox);
-
-            db.Close();
+                db.Open();
+                db.LoadItemsData(itemListbox);
+                db.LoadDataIntoComboBox("images", "description", imageCombobox);
+                db.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading form data: " + ex.Message);
+            }
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
-
+  
         }
 
         private void addItemDatabaseButton_Click(object sender, EventArgs e)
         {
-            db.Open();
+            try
+            {
+                db.Open();
 
-            db.SaveItem(productNameTextbox.Text, Convert.ToDouble(priceTextbox.Text, CultureInfo.InvariantCulture), Convert.ToInt32(stockNumericUpDown.Value), productDescriptionTextbox.Text, imageCombobox.SelectedItem.ToString());
-            db.LoadItemsData(itemListbox);
+                if (imageCombobox.SelectedItem == null)
+                {
+                    if (productNameTextbox.Text == "")
+                        MessageBox.Show("Name is not specified!");
+                    else
+                        db.SaveItemWithoutImage(productNameTextbox.Text, Convert.ToDouble(priceTextbox.Text, CultureInfo.InvariantCulture), productDescriptionTextbox.Text);
+                }
+                else
+                {
+                    db.SaveItem(productNameTextbox.Text, Convert.ToDouble(priceTextbox.Text, CultureInfo.InvariantCulture), productDescriptionTextbox.Text, imageCombobox.SelectedItem.ToString());
+                }
 
-            db.Close();
+                db.LoadItemsData(itemListbox);
+                db.Close();
+            }
+            catch (FormatException fe)
+            {
+                MessageBox.Show("Invalid price format: " + fe.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error adding item to database: " + ex.Message);
+            }
         }
+
+        public double price = 0;
 
         private void addItemInvoiceButton_Click(object sender, EventArgs e)
         {
-            amountNumericUpDown.Value = 1;
-
-            List<string> selectedItems = new List<string>();
-
-            foreach (var item in itemListbox.SelectedItems)
+            try
             {
-                selectedItems.Add(item.ToString());
-            }
+                if (itemListbox.SelectedItem is Item selected)
+                {
+                    int quantity = (int)amountNumericUpDown.Value;
+                    double total = selected.Price * quantity;
 
-            _mainForm.AddSelectedItemsToListBox(selectedItems, _mainForm.invoiceProductsListbox);
+                    InvoiceItem invoiceItem = new InvoiceItem
+                    {
+                        ItemName = selected.ItemName,
+                        ItemDescription = selected.ItemDescription,
+                        Quantity = quantity,
+                        TotalPrice = total
+                    };
+
+                    _mainForm.invoiceProductsListbox.Items.Add(invoiceItem);
+
+                    price += total;
+                    _mainForm.label6.Text = "Total: " + price.ToString("0.00", CultureInfo.InvariantCulture);
+                    amountNumericUpDown.Value = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error adding item to invoice: " + ex.Message);
+            }
         }
 
         private void itemListbox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (itemListbox.SelectedItem == null)
-                return;
-
-            amountNumericUpDown.Value = 1;
-
-            string selectedItem = itemListbox.SelectedItem.ToString();
-            string[] itemParts = selectedItem.Split('|');
-            if (itemParts.Length < 2)
-                return;
-
-            string itemName = itemParts[0].Trim(); 
-
-            db.Open();
-
-            int? imageId = db.GetImageIdByName(itemName);
-            if (imageId == null)
+            try
             {
-                db.Close();
-                return;
+                if (itemListbox.SelectedItem == null)
+                    return;
+
+                if (itemListbox.SelectedItem is Item selectedItem)
+                {
+                    string itemName = selectedItem.ItemName;
+
+                    db.Open();
+
+                    int? imageId = selectedItem.ImageID;
+
+                    if (imageId == null || imageId == 0)
+                    {
+                        pictureBox1.Image = null;
+                    }
+                    else
+                    {
+                        string imageUrl = db.GetImageUrl(imageId.Value);
+
+                        if (!string.IsNullOrEmpty(imageUrl))
+                        {
+                            pictureBox1.Load(imageUrl);
+                        }
+                        else
+                        {
+                            pictureBox1.Image = null;
+                        }
+                    }
+
+                    db.Close();
+                }
             }
-
-            string imageUrl = db.GetImageUrl(imageId.Value);
-
-            db.Close();
-
-            if (!string.IsNullOrEmpty(imageUrl))
+            catch (Exception ex)
             {
-                pictureBox1.Load(imageUrl);
+                MessageBox.Show("Error loading image: " + ex.Message);
             }
         }
 
         private void amountNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void deleteItemButton_Click(object sender, EventArgs e)
         {
-            if (itemListbox.SelectedItem == null)
-                return;
+            try
+            {
+                if (itemListbox.SelectedItem == null)
+                    return;
 
-            db.Open();
-
-            db.DeleteFrom(itemListbox, "items", "name");
-
-            db.Close();
+                db.Open();
+                db.DeleteFrom(itemListbox, "items", "name");
+                db.LoadItemsData(itemListbox);
+                db.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error deleting item: " + ex.Message);
+            }
         }
     }
 }

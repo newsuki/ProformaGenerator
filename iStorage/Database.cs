@@ -60,13 +60,13 @@ namespace iStorage
         }
 
 
-        public void CreateProforma(ListBox companyListBox, ListBox buyerListBox, ListBox itemsListBox, string expireDate, int invoiceNumber, string paymentType)
+        public void CreateProforma(RichTextBox sellerRichTextBox, RichTextBox buyerRichTextBox, ListBox itemsListBox, string expireDate, int invoiceNumber, double total)
         {
-            if (companyListBox.Items == null || buyerListBox.Items == null || itemsListBox.Items == null)
+            if (sellerRichTextBox == null || buyerRichTextBox == null || itemsListBox.Items == null)
                 return;
 
-            string companyName = companyListBox.Items[0].ToString().Split(' ')[0];
-            string buyerName = buyerListBox.Items[0].ToString().Split(' ')[0];
+            string companyName = sellerRichTextBox.Text;
+            string buyerName = buyerRichTextBox.Text;
 
             List<string> itemNames = new List<string>();
             foreach (var item in itemsListBox.Items)
@@ -80,29 +80,26 @@ namespace iStorage
             buyers_id,
             purchase_time,
             expire_date,
-            invoice_number,
-            payment_type
+            invoice_number
         )
         VALUES (
             (SELECT id FROM companies WHERE name = @companyName),
             (SELECT id FROM buyers WHERE name = @buyerName),
             datetime('now'), 
             @expireDate,
-            @invoiceNumber,
-            @paymentType
+            @invoiceNumber
         );", conn))
             {
                 com.Parameters.AddWithValue("@companyName", companyName);
                 com.Parameters.AddWithValue("@buyerName", buyerName);
                 com.Parameters.AddWithValue("@expireDate", expireDate);
                 com.Parameters.AddWithValue("@invoiceNumber", invoiceNumber);
-                com.Parameters.AddWithValue("@paymentType", paymentType);
                 com.ExecuteNonQuery();
             }
 
             MessageBox.Show("Successfully created proforma invoice!");
 
-            ProformaForm proformaForm = new ProformaForm(companyName, buyerName, itemNames, expireDate, invoiceNumber, paymentType);
+            ProformaForm proformaForm = new ProformaForm(companyName, buyerName, itemNames, expireDate, invoiceNumber, total);
             proformaForm.Show();
         }
 
@@ -112,16 +109,18 @@ namespace iStorage
             if (listBox.SelectedItem == null)
                 return;
 
-            string selectedText = listBox.SelectedItem.ToString();
-            string firstColumnValue = selectedText.Split('|')[0].Trim();
+            var selectedItem = listBox.SelectedItem;
 
-            using (SQLiteCommand com = new SQLiteCommand($"DELETE FROM {tableName} WHERE {columnName} = @value;", conn))
+            if (selectedItem is Item item)
             {
-                com.Parameters.AddWithValue("@value", firstColumnValue);
-                com.ExecuteNonQuery();
-            }
+                using (SQLiteCommand com = new SQLiteCommand($"DELETE FROM {tableName} WHERE {columnName} = @value;", conn))
+                {
+                    com.Parameters.AddWithValue("@value", item.ItemName);
+                    com.ExecuteNonQuery();
+                }
 
-            listBox.Items.Remove(selectedText);
+                listBox.Items.Remove(selectedItem);
+            }
         }
 
         public void LoadData(ListBox listBox, string tableName)
@@ -241,15 +240,25 @@ namespace iStorage
             }
         }
 
-        public void SaveItem(string name, double price, int stock, string description, string imageName)
+        public void SaveItem(string name, double price, string description, string imageName)
         {
-            using (SQLiteCommand com = new SQLiteCommand("INSERT INTO items (name, price, stock, description, images_id) VALUES (@name, @price, @stock, @description, (SELECT id FROM images WHERE description = @imageName));", conn))
+            using (SQLiteCommand com = new SQLiteCommand("INSERT INTO items (name, price, description, images_id) VALUES (@name, @price, @description, (SELECT id FROM images WHERE description = @imageName));", conn))
             {
                 com.Parameters.AddWithValue("@name", name);
                 com.Parameters.AddWithValue("@price", price + "€");
-                com.Parameters.AddWithValue("@stock", stock);
                 com.Parameters.AddWithValue("@description", description);
                 com.Parameters.AddWithValue("@imageName", imageName);
+                com.ExecuteNonQuery();
+            }
+        }
+
+        public void SaveItemWithoutImage(string name, double price, string description)
+        {
+            using (SQLiteCommand com = new SQLiteCommand("INSERT INTO items (name, price, description) VALUES (@name, @price, @description);", conn))
+            {
+                com.Parameters.AddWithValue("@name", name);
+                com.Parameters.AddWithValue("@price", price + "€");
+                com.Parameters.AddWithValue("@description", description);
                 com.ExecuteNonQuery();
             }
         }
@@ -258,55 +267,32 @@ namespace iStorage
         {
             listBox.Items.Clear();
 
-            string query = "PRAGMA table_info(items);";
-            using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+            string selectQuery = "SELECT name, description, price, images_id FROM items;";
+            using (SQLiteCommand com = new SQLiteCommand(selectQuery, conn))
             {
-                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                using (SQLiteDataReader dataReader = com.ExecuteReader())
                 {
-                    List<int> columnIndexesToSkip = new List<int>();
-                    int index = 0;
-
-                    while (reader.Read())
+                    while (dataReader.Read())
                     {
-                        string columnName = reader["name"].ToString();
+                        string name = dataReader["name"].ToString();
+                        string desc = dataReader["description"].ToString();
+                        double price = Convert.ToDouble(dataReader["price"]);
+                        int imageId = dataReader["images_id"] != DBNull.Value ? Convert.ToInt32(dataReader["images_id"]) : 0;
 
-                        if (columnName == "id" || columnName == "images_id" || columnName == "description" || columnName == "stock")
+                        Item item = new Item
                         {
-                            columnIndexesToSkip.Add(index);
-                        }
+                            ItemName = name,
+                            ImageID = imageId,
+                            ItemDescription = desc,
+                            Price = price
+                        };
 
-                        index++;
-                    }
-
-                    string selectQuery = $"SELECT * FROM items;";
-                    using (SQLiteCommand com = new SQLiteCommand(selectQuery, conn))
-                    {
-                        using (SQLiteDataReader dataReader = com.ExecuteReader())
-                        {
-                            while (dataReader.Read())
-                            {
-                                List<string> rowValues = new List<string>();
-
-                                for (int i = 0; i < dataReader.FieldCount; i++)
-                                {
-                                    if (!columnIndexesToSkip.Contains(i))
-                                    {
-                                        object value = dataReader[i];
-
-                                        if (value is IFormattable formattable && (value is decimal || value is double || value is float))
-                                            rowValues.Add(formattable.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "€");
-                                        else
-                                            rowValues.Add(value.ToString());
-                                    }
-                                }
-
-                                listBox.Items.Add(string.Join(" | ", rowValues));
-                            }
-                        }
+                        listBox.Items.Add(item);
                     }
                 }
             }
         }
+
 
 
 
