@@ -15,7 +15,7 @@ namespace iStorage
 
         public override string ToString()
         {
-            return $"{ItemName} x{Quantity} \n {ItemDescription} \n {TotalPrice:0.00}€";
+            return $"{ItemName} ({Quantity})\n{ItemDescription}\n{TotalPrice:0.00}";
         }
     }
 }

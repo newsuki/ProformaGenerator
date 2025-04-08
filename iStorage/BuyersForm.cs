@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -34,9 +35,16 @@ namespace iStorage
 
         private void addBuyerButton_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(firstNameTextbox.Text) || cityComboBox.SelectedIndex == -1)
+            {
+                MessageBox.Show("Name and city is required to add to database!");
+                return;
+            }
+
             db.Open();
 
             db.SaveBuyer(firstNameTextbox.Text, addressTextbox.Text, phoneTextbox.Text, cityComboBox.SelectedItem.ToString());
+
             db.LoadBuyersData(buyerListbox);
 
             db.Close();

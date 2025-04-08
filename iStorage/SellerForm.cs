@@ -34,9 +34,15 @@ namespace iStorage
 
         private void addSellerButton_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(sellerNameTextbox.Text) || sellerCityComboBox.SelectedIndex == -1)
+            {
+                MessageBox.Show("Name and city is required to add to database!");
+                return;
+            }
+
             db.Open();
 
-            db.SaveSeller(sellerNameTextbox.Text, sellerAddressTextbox.Text, sellerPhoneTextbox.Text, sellerCityComboBox.SelectedItem.ToString());
+            db.SaveBuyer(sellerNameTextbox.Text, sellerAddressTextbox.Text, sellerPhoneTextbox.Text, sellerCityComboBox.SelectedItem.ToString());
             db.LoadCompaniesData(sellerListbox);
 
             db.Close();

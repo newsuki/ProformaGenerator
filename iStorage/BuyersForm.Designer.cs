@@ -41,8 +41,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.deleteCheckbox = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buyerListbox
@@ -64,14 +62,14 @@
             // 
             // addressTextbox
             // 
-            this.addressTextbox.Location = new System.Drawing.Point(97, 22);
+            this.addressTextbox.Location = new System.Drawing.Point(17, 423);
             this.addressTextbox.Name = "addressTextbox";
             this.addressTextbox.Size = new System.Drawing.Size(100, 20);
             this.addressTextbox.TabIndex = 2;
             // 
             // phoneTextbox
             // 
-            this.phoneTextbox.Location = new System.Drawing.Point(216, 22);
+            this.phoneTextbox.Location = new System.Drawing.Point(136, 423);
             this.phoneTextbox.Name = "phoneTextbox";
             this.phoneTextbox.Size = new System.Drawing.Size(100, 20);
             this.phoneTextbox.TabIndex = 4;
@@ -117,7 +115,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(94, 6);
+            this.label4.Location = new System.Drawing.Point(14, 407);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 13);
             this.label4.TabIndex = 11;
@@ -127,7 +125,7 @@
             // 
             this.cityComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cityComboBox.FormattingEnabled = true;
-            this.cityComboBox.Location = new System.Drawing.Point(335, 21);
+            this.cityComboBox.Location = new System.Drawing.Point(255, 422);
             this.cityComboBox.Name = "cityComboBox";
             this.cityComboBox.Size = new System.Drawing.Size(121, 21);
             this.cityComboBox.TabIndex = 12;
@@ -135,7 +133,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(213, 6);
+            this.label5.Location = new System.Drawing.Point(133, 407);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(76, 13);
             this.label5.TabIndex = 13;
@@ -144,7 +142,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(332, 5);
+            this.label6.Location = new System.Drawing.Point(252, 406);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(64, 13);
             this.label6.TabIndex = 14;
@@ -161,30 +159,20 @@
             this.deleteCheckbox.UseVisualStyleBackColor = true;
             this.deleteCheckbox.CheckedChanged += new System.EventHandler(this.deleteCheckbox_CheckedChanged);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.addressTextbox);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.phoneTextbox);
-            this.groupBox1.Controls.Add(this.cityComboBox);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Location = new System.Drawing.Point(17, 405);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(546, 48);
-            this.groupBox1.TabIndex = 16;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Optional";
-            // 
             // BuyersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(575, 455);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.addressTextbox);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.deleteCheckbox);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.phoneTextbox);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.cityComboBox);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.selectBuyerLabel);
             this.Controls.Add(this.addBuyerButton);
             this.Controls.Add(this.firstNameTextbox);
@@ -192,8 +180,6 @@
             this.Name = "BuyersForm";
             this.Text = "Select buyer";
             this.Load += new System.EventHandler(this.BuyersForm_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -214,6 +200,5 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox deleteCheckbox;
-        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

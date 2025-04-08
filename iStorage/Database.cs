@@ -80,20 +80,23 @@ namespace iStorage
             buyers_id,
             purchase_time,
             expire_date,
-            invoice_number
+            invoice_number,
+            total
         )
         VALUES (
             (SELECT id FROM companies WHERE name = @companyName),
             (SELECT id FROM buyers WHERE name = @buyerName),
             datetime('now'), 
             @expireDate,
-            @invoiceNumber
+            @invoiceNumber,
+            @total
         );", conn))
             {
                 com.Parameters.AddWithValue("@companyName", companyName);
                 com.Parameters.AddWithValue("@buyerName", buyerName);
                 com.Parameters.AddWithValue("@expireDate", expireDate);
                 com.Parameters.AddWithValue("@invoiceNumber", invoiceNumber);
+                com.Parameters.AddWithValue("@total", total);
                 com.ExecuteNonQuery();
             }
 
@@ -121,7 +124,20 @@ namespace iStorage
 
                 listBox.Items.Remove(selectedItem);
             }
+            else
+            {
+                string selectedText = selectedItem.ToString().Split('|')[0].Trim();
+
+                using (SQLiteCommand com = new SQLiteCommand($"DELETE FROM {tableName} WHERE {columnName} = @value;", conn))
+                {
+                    com.Parameters.AddWithValue("@value", selectedText);
+                    com.ExecuteNonQuery();
+                }
+
+                listBox.Items.Remove(selectedItem);
+            }
         }
+
 
         public void LoadData(ListBox listBox, string tableName)
         {
@@ -292,9 +308,6 @@ namespace iStorage
                 }
             }
         }
-
-
-
 
         public void LoadCompaniesData(ListBox listBox)
         {

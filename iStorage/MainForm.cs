@@ -81,6 +81,9 @@ namespace iStorage
             sellerRichTextbox.Clear();
             buyerRichTextbox.Clear();
             invoiceProductsListbox.Items.Clear();
+
+            itemsForm.price = 0.00;
+            label6.Text = "Total: 0.00";
         }
 
         public void AddSelectedItemsToListBox(List<string> items, ListBox listBox)
@@ -92,7 +95,6 @@ namespace iStorage
             }
         }
 
-
         private void createInvoiceButton_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(sellerRichTextbox.Text) ||
@@ -103,20 +105,21 @@ namespace iStorage
                 return;
             }
 
-
-
             db.Open();
 
-            db.CreateProforma(sellerRichTextbox, buyerRichTextbox, invoiceProductsListbox, dateTimePicker1.Value.ToString(), random.Next(600000, 1000001), itemsForm.price);
+            int yearPrefix = DateTime.Now.Year;
+            int invoiceNumber = random.Next(600000, 1000001);
+            int invoiceWithYear = yearPrefix * 1000000 + invoiceNumber;
+
+            db.CreateProforma(sellerRichTextbox, buyerRichTextbox, invoiceProductsListbox, dateTimePicker1.Value.ToString(), invoiceWithYear, itemsForm.price);
+
 
             var listBoxData = invoiceProductsListbox.Items
                     .Cast<InvoiceItem>()
-                    .Select(item => $"{item.ItemName} x{item.Quantity} ${item.TotalPrice:0.00} \n {item.ItemDescription}")
+                    .Select(item => $"{item.ItemName} ({item.Quantity})\n{item.ItemDescription}\n{item.TotalPrice:#0.##}")
                     .ToList();
             var richTextBox1Data = buyerRichTextbox.Text;
             var richTextBox2Data = sellerRichTextbox.Text;
-
-            history.Add((listBoxData, richTextBox1Data, richTextBox2Data));
 
             db.Close();
         }
@@ -210,9 +213,7 @@ namespace iStorage
                 InvoiceItem selectedItem = (InvoiceItem)invoiceProductsListbox.SelectedItem;
 
                 double currentPrice = itemsForm.price;
-
                 currentPrice -= selectedItem.TotalPrice;
-
                 itemsForm.price = currentPrice;
 
                 invoiceProductsListbox.Items.RemoveAt(invoiceProductsListbox.SelectedIndex);
@@ -221,22 +222,10 @@ namespace iStorage
             }
         }
 
-        private List<(List<string> listBoxData, string richTextBox1Data, string richTextBox2Data)> history = new List<(List<string>, string, string)>();
-
         private void proformaHistoryButton_Click(object sender, EventArgs e)
         {
-            HistoryForm historyForm = new HistoryForm(history);
+            HistoryForm historyForm = new HistoryForm();
             historyForm.Show();
-        }
-
-        public void LoadHistoryData(List<string> listBoxData, string richTextBox1Data, string richTextBox2Data)
-        {
-            invoiceProductsListbox.Items.Clear();
-
-            invoiceProductsListbox.Items.AddRange(listBoxData.ToArray());
-
-            buyerRichTextbox.Text = richTextBox1Data;
-            sellerRichTextbox.Text = richTextBox2Data;
         }
     }
 }

@@ -41,14 +41,12 @@
             this.sellerNameTextbox = new System.Windows.Forms.TextBox();
             this.sellerListbox = new System.Windows.Forms.ListBox();
             this.deleteCheckbox = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(316, 11);
+            this.label6.Location = new System.Drawing.Point(262, 401);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(64, 13);
             this.label6.TabIndex = 28;
@@ -57,7 +55,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(192, 12);
+            this.label5.Location = new System.Drawing.Point(138, 402);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
             this.label5.TabIndex = 27;
@@ -67,7 +65,7 @@
             // 
             this.sellerCityComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.sellerCityComboBox.FormattingEnabled = true;
-            this.sellerCityComboBox.Location = new System.Drawing.Point(319, 27);
+            this.sellerCityComboBox.Location = new System.Drawing.Point(265, 417);
             this.sellerCityComboBox.Name = "sellerCityComboBox";
             this.sellerCityComboBox.Size = new System.Drawing.Size(121, 21);
             this.sellerCityComboBox.TabIndex = 26;
@@ -75,7 +73,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(69, 11);
+            this.label4.Location = new System.Drawing.Point(15, 401);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 13);
             this.label4.TabIndex = 25;
@@ -121,14 +119,14 @@
             // 
             // sellerPhoneTextbox
             // 
-            this.sellerPhoneTextbox.Location = new System.Drawing.Point(195, 28);
+            this.sellerPhoneTextbox.Location = new System.Drawing.Point(141, 418);
             this.sellerPhoneTextbox.Name = "sellerPhoneTextbox";
             this.sellerPhoneTextbox.Size = new System.Drawing.Size(100, 20);
             this.sellerPhoneTextbox.TabIndex = 19;
             // 
             // sellerAddressTextbox
             // 
-            this.sellerAddressTextbox.Location = new System.Drawing.Point(72, 27);
+            this.sellerAddressTextbox.Location = new System.Drawing.Point(18, 417);
             this.sellerAddressTextbox.Name = "sellerAddressTextbox";
             this.sellerAddressTextbox.Size = new System.Drawing.Size(100, 20);
             this.sellerAddressTextbox.TabIndex = 17;
@@ -160,30 +158,20 @@
             this.deleteCheckbox.Text = "Delete from list?";
             this.deleteCheckbox.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.sellerAddressTextbox);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.sellerPhoneTextbox);
-            this.groupBox1.Controls.Add(this.sellerCityComboBox);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Location = new System.Drawing.Point(16, 393);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(546, 54);
-            this.groupBox1.TabIndex = 30;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Optional";
-            // 
             // SellerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(573, 450);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.sellerAddressTextbox);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.deleteCheckbox);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.sellerPhoneTextbox);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.sellerCityComboBox);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.selectBuyerLabel);
             this.Controls.Add(this.addSellerButton);
             this.Controls.Add(this.sellerNameTextbox);
@@ -191,8 +179,6 @@
             this.Name = "SellerForm";
             this.Text = "Select seller";
             this.Load += new System.EventHandler(this.SellerForm_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,6 +199,5 @@
         private System.Windows.Forms.TextBox sellerNameTextbox;
         private System.Windows.Forms.ListBox sellerListbox;
         private System.Windows.Forms.CheckBox deleteCheckbox;
-        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
