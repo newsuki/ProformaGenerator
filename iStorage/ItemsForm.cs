@@ -85,8 +85,6 @@ namespace iStorage
             }
         }
 
-        public double price = 0;
-
         private void addItemInvoiceButton_Click(object sender, EventArgs e)
         {
             try
@@ -106,8 +104,9 @@ namespace iStorage
 
                     _mainForm.invoiceProductsListbox.Items.Add(invoiceItem);
 
-                    price += total;
-                    _mainForm.label6.Text = "Total: " + price.ToString("0.00", CultureInfo.InvariantCulture);
+                    _mainForm.totalInvoicePrice += total;
+                    _mainForm.label6.Text = "Total: " + _mainForm.totalInvoicePrice.ToString("0.00", CultureInfo.InvariantCulture);
+
                     amountNumericUpDown.Value = 1;
                 }
             }

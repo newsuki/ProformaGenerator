@@ -70,6 +70,7 @@
             this.Controls.Add(this.pdfButton);
             this.Controls.Add(this.printButton);
             this.Controls.Add(this.proformaRichBox);
+            this.MaximizeBox = false;
             this.Name = "ProformaForm";
             this.Text = "Result";
             this.Load += new System.EventHandler(this.ProformaForm_Load);

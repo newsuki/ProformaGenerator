@@ -273,7 +273,7 @@
             this.proformaHistoryButton.Name = "proformaHistoryButton";
             this.proformaHistoryButton.Size = new System.Drawing.Size(130, 23);
             this.proformaHistoryButton.TabIndex = 31;
-            this.proformaHistoryButton.Text = "History";
+            this.proformaHistoryButton.Text = "History/Saved invoices";
             this.proformaHistoryButton.UseVisualStyleBackColor = true;
             this.proformaHistoryButton.Click += new System.EventHandler(this.proformaHistoryButton_Click);
             // 

@@ -18,6 +18,8 @@ namespace iStorage
         private Database db;
         public ItemsForm itemsForm;
 
+        public double totalInvoicePrice = 0;
+
         private readonly Random random = new Random();
         public MainForm()
         {
@@ -82,8 +84,8 @@ namespace iStorage
             buyerRichTextbox.Clear();
             invoiceProductsListbox.Items.Clear();
 
-            itemsForm.price = 0.00;
-            label6.Text = "Total: 0.00";
+            totalInvoicePrice = 0.00;
+            label6.Text = "Total: " + totalInvoicePrice;
         }
 
         public void AddSelectedItemsToListBox(List<string> items, ListBox listBox)
@@ -111,8 +113,6 @@ namespace iStorage
             int invoiceNumber = random.Next(600000, 1000001);
             int invoiceWithYear = yearPrefix * 1000000 + invoiceNumber;
 
-            db.CreateProforma(sellerRichTextbox, buyerRichTextbox, invoiceProductsListbox, dateTimePicker1.Value.ToString(), invoiceWithYear, itemsForm.price);
-
 
             var listBoxData = invoiceProductsListbox.Items
                     .Cast<InvoiceItem>()
@@ -120,6 +120,9 @@ namespace iStorage
                     .ToList();
             var richTextBox1Data = buyerRichTextbox.Text;
             var richTextBox2Data = sellerRichTextbox.Text;
+
+            db.CreateProforma(sellerRichTextbox, buyerRichTextbox, invoiceProductsListbox, dateTimePicker1.Value.ToString(), invoiceWithYear, totalInvoicePrice);
+
 
             db.Close();
         }
@@ -210,17 +213,23 @@ namespace iStorage
         {
             if (invoiceProductsListbox.SelectedIndex != -1)
             {
-                InvoiceItem selectedItem = (InvoiceItem)invoiceProductsListbox.SelectedItem;
+                var selectedItem = invoiceProductsListbox.SelectedItem;
 
-                double currentPrice = itemsForm.price;
-                currentPrice -= selectedItem.TotalPrice;
-                itemsForm.price = currentPrice;
+                if (selectedItem is InvoiceItem invoiceItem)
+                {
+                    totalInvoicePrice -= invoiceItem.TotalPrice;
+                }
+                else
+                {
+                    // It's probably a string, so we can't modify the total
+                    MessageBox.Show("This item is from a historical invoice and cannot be modified.");
+                }
 
                 invoiceProductsListbox.Items.RemoveAt(invoiceProductsListbox.SelectedIndex);
-
-                label6.Text = "Total: " + currentPrice.ToString("0.00", CultureInfo.InvariantCulture);
+                label6.Text = "Total: " + totalInvoicePrice.ToString("0.00", CultureInfo.InvariantCulture);
             }
         }
+
 
         private void proformaHistoryButton_Click(object sender, EventArgs e)
         {

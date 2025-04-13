@@ -69,23 +69,20 @@ namespace iStorage
             string buyerName = buyerRichTextBox.Text;
 
             List<string> itemNames = new List<string>();
-            foreach (var item in itemsListBox.Items)
-            {
-                itemNames.Add(item.ToString());
-            }
 
+            // Step 1: Insert the proforma invoice
             using (SQLiteCommand com = new SQLiteCommand(@"
         INSERT INTO proforma_invoices (
-            companies_id,
-            buyers_id,
+            buyer_name,
+            seller_name,
             purchase_time,
             expire_date,
             invoice_number,
             total
         )
         VALUES (
-            (SELECT id FROM companies WHERE name = @companyName),
-            (SELECT id FROM buyers WHERE name = @buyerName),
+            @buyerName,
+            @companyName,
             datetime('now'), 
             @expireDate,
             @invoiceNumber,
@@ -100,11 +97,113 @@ namespace iStorage
                 com.ExecuteNonQuery();
             }
 
+            // Step 2: Get the last inserted proforma invoice ID
+            long proformaId;
+            using (SQLiteCommand getIdCommand = new SQLiteCommand("SELECT last_insert_rowid();", conn))
+            {
+                proformaId = (long)getIdCommand.ExecuteScalar();
+            }
+
+            // Step 3: Insert each item in the proforma
+            foreach (var obj in itemsListBox.Items)
+            {
+                if (obj is InvoiceItem invoiceItem)
+                {
+                    string name = invoiceItem.ItemName;
+                    int qty = invoiceItem.Quantity;
+                    double price = invoiceItem.TotalPrice;
+
+                    itemNames.Add(invoiceItem.ToString());
+
+                    using (SQLiteCommand itemCommand = new SQLiteCommand(@"
+                INSERT INTO items_proforma_invoices (items_id, proforma_invoices_id, quantity, totalprice)
+                VALUES (
+                    (SELECT id FROM items WHERE name = @itemname),
+                    @proformaId,
+                    @quantity,
+                    @totalprice
+                );", conn))
+                    {
+                        itemCommand.Parameters.AddWithValue("@itemname", name);
+                        itemCommand.Parameters.AddWithValue("@proformaId", proformaId);
+                        itemCommand.Parameters.AddWithValue("@quantity", qty);
+                        itemCommand.Parameters.AddWithValue("@totalprice", price);
+                        itemCommand.ExecuteNonQuery();
+                    }
+                }
+            }
+
             MessageBox.Show("Successfully created proforma invoice!");
 
             ProformaForm proformaForm = new ProformaForm(companyName, buyerName, itemNames, expireDate, invoiceNumber, total);
             proformaForm.Show();
         }
+
+        public void LoadProformaInvoiceData(ListBox listBoxItems, RichTextBox richTextBoxSeller, RichTextBox richTextBoxBuyer, string invoiceNumber)
+        {
+            listBoxItems.Items.Clear();
+            richTextBoxSeller.Clear();
+            richTextBoxBuyer.Clear();
+
+            int invoiceId = -1;
+
+            // 1. Get invoice ID and seller/buyer info
+            string getIdQuery = "SELECT id, seller_name, buyer_name FROM proforma_invoices WHERE invoice_number = @invoiceNumber;";
+            using (SQLiteCommand cmd = new SQLiteCommand(getIdQuery, conn))
+            {
+                cmd.Parameters.AddWithValue("@invoiceNumber", invoiceNumber);
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        invoiceId = Convert.ToInt32(reader["id"]);
+                        richTextBoxSeller.Text = reader["seller_name"].ToString();
+                        richTextBoxBuyer.Text = reader["buyer_name"].ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invoice not found.");
+                        return;
+                    }
+                }
+            }
+
+            // 2. Get items from items_proforma_invoices + items
+            string queryItems = @"
+        SELECT i.name, i.description, ipi.quantity, ipi.totalprice
+        FROM items_proforma_invoices ipi
+        JOIN items i ON ipi.items_id = i.id
+        WHERE ipi.proforma_invoices_id = @invoiceId;";
+
+            using (SQLiteCommand cmd = new SQLiteCommand(queryItems, conn))
+            {
+                cmd.Parameters.AddWithValue("@invoiceId", invoiceId);
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string itemName = reader["name"].ToString();
+                        string itemDescription = reader["description"].ToString();
+                        int quantity = Convert.ToInt32(reader["quantity"]);
+                        double totalPrice = Convert.ToDouble(reader["totalprice"]);
+
+                        InvoiceItem invoiceItem = new InvoiceItem
+                        {
+                            ItemName = itemName,
+                            ItemDescription = itemDescription,
+                            Quantity = quantity,
+                            TotalPrice = totalPrice
+                        };
+
+                        listBoxItems.Items.Add(invoiceItem); // ← use the object, not a string
+                    }
+                }
+            }
+        }
+
+
+
+
 
 
         public void DeleteFrom(ListBox listBox, string tableName, string columnName)
