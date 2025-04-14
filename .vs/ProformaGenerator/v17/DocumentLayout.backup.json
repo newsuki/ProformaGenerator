@@ -3,7 +3,27 @@
   "WorkspaceRootPath": "D:\\My Projects\\ProformaGenerator\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|D:\\My Projects\\ProformaGenerator\\istorage\\historyform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|D:\\My Projects\\ProformaGenerator\\istorage\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|solutionrelative:istorage\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|D:\\My Projects\\ProformaGenerator\\istorage\\itemsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|solutionrelative:istorage\\itemsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|D:\\My Projects\\ProformaGenerator\\istorage\\itemsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|solutionrelative:istorage\\itemsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|d:\\my projects\\proformagenerator\\istorage\\proformaform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|solutionrelative:istorage\\proformaform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|D:\\My Projects\\ProformaGenerator\\istorage\\proformaform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|solutionrelative:istorage\\proformaform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|d:\\my projects\\proformagenerator\\istorage\\historyform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|solutionrelative:istorage\\historyform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -11,36 +31,20 @@
       "RelativeMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|solutionrelative:istorage\\historyform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|d:\\my projects\\proformagenerator\\istorage\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|solutionrelative:istorage\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|d:\\my projects\\proformagenerator\\istorage\\itemsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|solutionrelative:istorage\\itemsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|d:\\my projects\\proformagenerator\\istorage\\proformaform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|solutionrelative:istorage\\proformaform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|d:\\my projects\\proformagenerator\\istorage\\itemsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|solutionrelative:istorage\\itemsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|D:\\My Projects\\ProformaGenerator\\istorage\\invoiceitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|solutionrelative:istorage\\invoiceitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|D:\\My Projects\\ProformaGenerator\\istorage\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|solutionrelative:istorage\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|D:\\My Projects\\ProformaGenerator\\istorage\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|solutionrelative:istorage\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|D:\\My Projects\\ProformaGenerator\\istorage\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|solutionrelative:istorage\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|D:\\My Projects\\ProformaGenerator\\istorage\\sellerform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|solutionrelative:istorage\\sellerform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|D:\\My Projects\\ProformaGenerator\\istorage\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{850DDD54-0B70-47A6-98BD-1EFD110BE6E5}|iStorage\\iStorage.csproj|solutionrelative:istorage\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -50,11 +54,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProformaForm.cs",
+              "DocumentMoniker": "D:\\My Projects\\ProformaGenerator\\iStorage\\ProformaForm.cs",
+              "RelativeDocumentMoniker": "iStorage\\ProformaForm.cs",
+              "ToolTip": "D:\\My Projects\\ProformaGenerator\\iStorage\\ProformaForm.cs",
+              "RelativeToolTip": "iStorage\\ProformaForm.cs",
+              "ViewState": "AgIAAMQAAAAAAAAAAAAAAMgAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-14T12:43:08.767Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -70,20 +87,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "ItemsForm.cs",
               "DocumentMoniker": "D:\\My Projects\\ProformaGenerator\\iStorage\\ItemsForm.cs",
               "RelativeDocumentMoniker": "iStorage\\ItemsForm.cs",
               "ToolTip": "D:\\My Projects\\ProformaGenerator\\iStorage\\ItemsForm.cs",
               "RelativeToolTip": "iStorage\\ItemsForm.cs",
-              "ViewState": "AgIAAFMAAAAAAAAAAAAswFcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAswGAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-13T18:41:54.055Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "ItemsForm.cs [Design]",
               "DocumentMoniker": "D:\\My Projects\\ProformaGenerator\\iStorage\\ItemsForm.cs",
               "RelativeDocumentMoniker": "iStorage\\ItemsForm.cs",
@@ -95,20 +112,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "HistoryForm.cs",
               "DocumentMoniker": "D:\\My Projects\\ProformaGenerator\\iStorage\\HistoryForm.cs",
               "RelativeDocumentMoniker": "iStorage\\HistoryForm.cs",
               "ToolTip": "D:\\My Projects\\ProformaGenerator\\iStorage\\HistoryForm.cs",
               "RelativeToolTip": "iStorage\\HistoryForm.cs",
-              "ViewState": "AgIAAE8AAAAAAAAAAAAAwHEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAAwFkAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-08T19:48:03.932Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "HistoryForm.cs [Design]",
               "DocumentMoniker": "D:\\My Projects\\ProformaGenerator\\iStorage\\HistoryForm.cs",
               "RelativeDocumentMoniker": "iStorage\\HistoryForm.cs",
@@ -120,7 +137,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "InvoiceItem.cs",
               "DocumentMoniker": "D:\\My Projects\\ProformaGenerator\\iStorage\\InvoiceItem.cs",
               "RelativeDocumentMoniker": "iStorage\\InvoiceItem.cs",
@@ -133,20 +150,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "MainForm.cs",
               "DocumentMoniker": "D:\\My Projects\\ProformaGenerator\\iStorage\\MainForm.cs",
               "RelativeDocumentMoniker": "iStorage\\MainForm.cs",
               "ToolTip": "D:\\My Projects\\ProformaGenerator\\iStorage\\MainForm.cs",
               "RelativeToolTip": "iStorage\\MainForm.cs",
-              "ViewState": "AgIAAF8AAAAAAAAAAAAAAG8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAAAHAAAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-07T19:56:52.549Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "MainForm.cs [Design]",
               "DocumentMoniker": "D:\\My Projects\\ProformaGenerator\\iStorage\\MainForm.cs",
               "RelativeDocumentMoniker": "iStorage\\MainForm.cs",
@@ -158,13 +175,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 0,
               "Title": "Database.cs",
               "DocumentMoniker": "D:\\My Projects\\ProformaGenerator\\iStorage\\Database.cs",
               "RelativeDocumentMoniker": "iStorage\\Database.cs",
               "ToolTip": "D:\\My Projects\\ProformaGenerator\\iStorage\\Database.cs",
               "RelativeToolTip": "iStorage\\Database.cs",
-              "ViewState": "AgIAAHoAAAAAAAAAAAAAAJwAAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAAGgAAAAAAAAAAAAwwGsAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-07T19:56:28.581Z",
               "EditorCaption": ""
@@ -178,7 +195,8 @@
               "ToolTip": "D:\\My Projects\\ProformaGenerator\\iStorage\\SellerForm.cs [Design]",
               "RelativeToolTip": "iStorage\\SellerForm.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T19:53:55.206Z"
+              "WhenOpened": "2025-04-07T19:53:55.206Z",
+              "EditorCaption": " [Design]"
             }
           ]
         }

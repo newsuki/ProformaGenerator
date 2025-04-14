@@ -109,23 +109,22 @@ namespace iStorage
 
             db.Open();
 
-            int yearPrefix = DateTime.Now.Year;
-            int invoiceNumber = random.Next(600000, 1000001);
-            int invoiceWithYear = yearPrefix * 1000000 + invoiceNumber;
-
+            int year = DateTime.Now.Year;
+            string invoiceNumber = db.GenerateInvoiceNumber(year); 
 
             var listBoxData = invoiceProductsListbox.Items
                     .Cast<InvoiceItem>()
                     .Select(item => $"{item.ItemName} ({item.Quantity})\n{item.ItemDescription}\n{item.TotalPrice:#0.##}")
                     .ToList();
-            var richTextBox1Data = buyerRichTextbox.Text;
-            var richTextBox2Data = sellerRichTextbox.Text;
 
-            db.CreateProforma(sellerRichTextbox, buyerRichTextbox, invoiceProductsListbox, dateTimePicker1.Value.ToString(), invoiceWithYear, totalInvoicePrice);
+            string richTextBox1Data = buyerRichTextbox.Text;
+            string richTextBox2Data = sellerRichTextbox.Text;
 
+            db.CreateProforma(sellerRichTextbox, buyerRichTextbox, invoiceProductsListbox, dateTimePicker1.Value.ToString(), invoiceNumber, totalInvoicePrice);
 
             db.Close();
         }
+
 
         private void excelButton_Click(object sender, EventArgs e)
         {

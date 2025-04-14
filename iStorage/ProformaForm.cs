@@ -9,6 +9,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
@@ -19,14 +20,14 @@ namespace iStorage
 {
     public partial class ProformaForm : Form
     {
-        public ProformaForm(string companyName, string buyerName, List<string> items, string expireDate, int invoiceNumber, double total)
+        public ProformaForm(string companyName, string buyerName, List<InvoiceItem> items, string expireDate, string invoiceNumber, double total)
         {
             InitializeComponent();
-
             PopulateProforma(companyName, buyerName, items, expireDate, invoiceNumber, total);
         }
 
-        private void PopulateProforma(string companyName, string buyerName, List<string> items, string expireDate, int invoiceNumber, double total)
+
+        private void PopulateProforma(string companyName, string buyerName, List<InvoiceItem> items, string expireDate, string invoiceNumber, double total)
         {
             proformaRichBox.Clear();
             proformaRichBox.Font = new System.Drawing.Font("Consolas", 10);
@@ -56,37 +57,31 @@ namespace iStorage
             AppendLine(buyerName, FontStyle.Regular);
             AppendLine();
 
-            AppendLine("DESCRIPTION".PadRight(35) + "QTY".PadLeft(5) + "  UNIT (€)".PadLeft(12),
+            AppendLine("PRODUCT".PadRight(25) + "QTY".PadLeft(5) + "x" + "UNIT (€)".PadLeft(10) + "TOTAL (€)".PadLeft(10),
                        FontStyle.Bold, Color.Black);
-            AppendLine(new string('-', 70), FontStyle.Regular, Color.Gray);
+
 
             foreach (var item in items)
             {
-                var lines = item.Replace("\\n", "\n").Split('\n');
-                string nameAndQty = lines.ElementAtOrDefault(0)?.Trim() ?? "";
-                string description = lines.Length == 3 ? lines[1].Trim() : "";
-                string priceStr = lines.Last().Trim();
+                double unitPrice = item.Quantity > 0 ? item.TotalPrice / item.Quantity : 0;
 
-                string[] parts = nameAndQty.Split('(');
-                string name = parts[0].Trim();
-                int qty = 1;
-                if (parts.Length > 1 && parts[1].Contains(")"))
-                    int.TryParse(parts[1].Split(')')[0], out qty);
+                AppendLine(
+                    item.ItemName.PadRight(25) +
+                    item.Quantity.ToString().PadLeft(5) + "x" +
+                    unitPrice.ToString("0.00").PadLeft(10) + "€" +
+                    item.TotalPrice.ToString("0.00").PadLeft(10) + "€",
+                    FontStyle.Regular, Color.Black
+                );
 
-                double price = 0;
-                double.TryParse(priceStr, NumberStyles.Any, CultureInfo.CurrentCulture, out price);
 
-                AppendLine(name.PadRight(35) + qty.ToString().PadLeft(5) +
-                           price.ToString("0.00").PadLeft(14), FontStyle.Regular, Color.Black);
 
-                if (!string.IsNullOrWhiteSpace(description))
-                    AppendLine("  " + description, FontStyle.Italic, Color.DimGray, 9);
+                if (!string.IsNullOrWhiteSpace(item.ItemDescription))
+                    AppendLine("  " + item.ItemDescription, FontStyle.Italic, Color.DimGray, 9);
 
                 AppendLine();
             }
 
             AppendLine(new string('-', 70), FontStyle.Regular, Color.Gray);
-
             AppendLine("".PadRight(52) + "TOTAL (EUR):".PadLeft(14) + total.ToString("0.00").PadLeft(14),
                        FontStyle.Bold, Color.DarkRed, 11);
             AppendLine("".PadRight(52) + "TOTAL DUE (EUR):".PadLeft(14) + total.ToString("0.00").PadLeft(14),
@@ -96,6 +91,7 @@ namespace iStorage
             AppendLine("Issued by:", FontStyle.Regular, Color.Black);
             AppendLine(companyName, FontStyle.Bold, Color.Black);
         }
+
 
 
 
@@ -141,27 +137,69 @@ namespace iStorage
                                     Alignment = Element.ALIGN_CENTER
                                 };
                                 pdfDoc.Add(title);
+                                pdfDoc.Add(new Paragraph("\n")); // Space after title
                             }
                             else if (trimmedLine.Contains("BILL TO:"))
                             {
                                 Paragraph billTo = new Paragraph(trimmedLine, boldFont);
                                 pdfDoc.Add(billTo);
-                                pdfDoc.Add(new Chunk("\n"));  
                             }
-                            else if (trimmedLine.Contains("TOTAL (EUR):"))
+                            else if (trimmedLine.StartsWith("TOTAL (EUR):"))
                             {
                                 Paragraph totalAmount = new Paragraph(trimmedLine, redFont)
                                 {
                                     Alignment = Element.ALIGN_RIGHT
                                 };
+                                pdfDoc.Add(new Paragraph("\n")); // Spacer before total
                                 pdfDoc.Add(totalAmount);
+                            }
+                            else if (trimmedLine.StartsWith("PRODUCT")) // Header for items
+                            {
+                                PdfPTable table = new PdfPTable(4);
+                                table.WidthPercentage = 100;
+                                table.SetWidths(new float[] { 45f, 15f, 20f, 20f });
+
+                                AddCell(table, "PRODUCT", boldFont);
+                                AddCell(table, "QTY", boldFont);
+                                AddCell(table, "UNIT (€)", boldFont);
+                                AddCell(table, "TOTAL (€)", boldFont);
+
+                                pdfDoc.Add(new Paragraph("\n")); // Space before table
+                                pdfDoc.Add(table);
+                            }
+                            else if (trimmedLine.Contains("x") && trimmedLine.Contains("€")) // Item rows
+                            {
+                                // Example: Mouse              2x     25.00€    50.00€
+                                string[] parts = Regex.Split(trimmedLine, @"\s{2,}"); // Split by 2+ spaces
+
+                                if (parts.Length >= 4)
+                                {
+                                    PdfPTable row = new PdfPTable(4);
+                                    row.WidthPercentage = 100;
+                                    row.SetWidths(new float[] { 45f, 15f, 20f, 20f });
+
+                                    foreach (string part in parts)
+                                    {
+                                        AddCell(row, part.Trim(), regularFont);
+                                    }
+
+                                    pdfDoc.Add(row);
+                                }
+                                else
+                                {
+                                    pdfDoc.Add(new Paragraph(trimmedLine, regularFont)); // fallback
+                                }
                             }
                             else
                             {
+                                // Spacer after BILL TO block
+                                if (trimmedLine == "") pdfDoc.Add(new Paragraph("\n"));
+
                                 Paragraph regularText = new Paragraph(trimmedLine, regularFont);
                                 pdfDoc.Add(regularText);
                             }
                         }
+
 
                         pdfDoc.Close();
                     }
@@ -174,6 +212,15 @@ namespace iStorage
                 }
             }
         }
+
+        private void AddCell(PdfPTable table, string text, iTextSharp.text.Font font)
+        {
+            PdfPCell cell = new PdfPCell(new Phrase(text, font));
+            cell.Border = iTextSharp.text.Rectangle.NO_BORDER;
+            cell.HorizontalAlignment = Element.ALIGN_LEFT;
+            table.AddCell(cell);
+        }
+
 
         private void ProformaForm_Load(object sender, EventArgs e)
         {

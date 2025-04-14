@@ -92,7 +92,9 @@ namespace iStorage
                 if (itemListbox.SelectedItem is Item selected)
                 {
                     int quantity = (int)amountNumericUpDown.Value;
-                    double total = selected.Price * quantity;
+                    int percentage = (int)discountNumericUpDown.Value;
+                    double total = selected.Price * quantity * (1 - (percentage / 100.0));
+
 
                     InvoiceItem invoiceItem = new InvoiceItem
                     {

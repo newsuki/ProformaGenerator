@@ -59,8 +59,35 @@ namespace iStorage
             }
         }
 
+        public string GenerateInvoiceNumber(int year)
+        {
+            int nextNumber = 1;
 
-        public void CreateProforma(RichTextBox sellerRichTextBox, RichTextBox buyerRichTextBox, ListBox itemsListBox, string expireDate, int invoiceNumber, double total)
+            using (SQLiteCommand cmd = new SQLiteCommand(@"
+        SELECT invoice_number FROM proforma_invoices 
+        WHERE invoice_number LIKE @yearPrefix || '/%' 
+        ORDER BY invoice_number DESC 
+        LIMIT 1;", conn))
+            {
+                cmd.Parameters.AddWithValue("@yearPrefix", year.ToString());
+                var result = cmd.ExecuteScalar();
+
+                if (result != null && result is string lastInvoice)
+                {
+                    string[] parts = lastInvoice.Split('/');
+                    if (parts.Length == 2 && int.TryParse(parts[1], out int lastNumber))
+                    {
+                        nextNumber = lastNumber + 1;
+                    }
+                }
+            }
+
+            return $"{year}/{nextNumber.ToString("D5")}";
+        }
+
+
+
+        public void CreateProforma(RichTextBox sellerRichTextBox, RichTextBox buyerRichTextBox, ListBox itemsListBox, string expireDate, string invoiceNumber, double total)
         {
             if (sellerRichTextBox == null || buyerRichTextBox == null || itemsListBox.Items == null)
                 return;
@@ -68,7 +95,7 @@ namespace iStorage
             string companyName = sellerRichTextBox.Text;
             string buyerName = buyerRichTextBox.Text;
 
-            List<string> itemNames = new List<string>();
+            List<InvoiceItem> invoiceItems = new List<InvoiceItem>();
 
             // Step 1: Insert the proforma invoice
             using (SQLiteCommand com = new SQLiteCommand(@"
@@ -113,7 +140,7 @@ namespace iStorage
                     int qty = invoiceItem.Quantity;
                     double price = invoiceItem.TotalPrice;
 
-                    itemNames.Add(invoiceItem.ToString());
+                    invoiceItems.Add(invoiceItem);
 
                     using (SQLiteCommand itemCommand = new SQLiteCommand(@"
                 INSERT INTO items_proforma_invoices (items_id, proforma_invoices_id, quantity, totalprice)
@@ -135,7 +162,8 @@ namespace iStorage
 
             MessageBox.Show("Successfully created proforma invoice!");
 
-            ProformaForm proformaForm = new ProformaForm(companyName, buyerName, itemNames, expireDate, invoiceNumber, total);
+            ProformaForm proformaForm = new ProformaForm(companyName, buyerName, invoiceItems, expireDate, invoiceNumber, total);
+
             proformaForm.Show();
         }
 

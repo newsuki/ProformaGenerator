@@ -45,8 +45,11 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.deleteItemButton = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
+            this.discountNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.amountNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.discountNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // itemListbox
@@ -213,11 +216,29 @@
             this.label8.Size = new System.Drawing.Size(0, 13);
             this.label8.TabIndex = 20;
             // 
+            // discountNumericUpDown
+            // 
+            this.discountNumericUpDown.Location = new System.Drawing.Point(150, 99);
+            this.discountNumericUpDown.Name = "discountNumericUpDown";
+            this.discountNumericUpDown.Size = new System.Drawing.Size(61, 20);
+            this.discountNumericUpDown.TabIndex = 21;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(147, 85);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(66, 13);
+            this.label5.TabIndex = 22;
+            this.label5.Text = "Discount (%)";
+            // 
             // ItemsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1029, 394);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.discountNumericUpDown);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.deleteItemButton);
             this.Controls.Add(this.pictureBox1);
@@ -240,6 +261,7 @@
             this.Load += new System.EventHandler(this.ItemsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.amountNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.discountNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -264,5 +286,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button deleteItemButton;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown discountNumericUpDown;
+        private System.Windows.Forms.Label label5;
     }
 }
